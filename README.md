@@ -1,8 +1,8 @@
-# PROJECT NAME
+# 파인닥 (Findoc)
 
-![인트로이미지](https://github.com/beyond-sw-camp/be08-1st-1team/assets/28796063/72d82cea-f632-4085-b6ca-68def4b37438)
+![인트로이미지](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/28796063/ac7970ba-df03-4250-b755-364d25dc31ac)
 
-> [플레이 데이터] 한화시스템 BEYOND SW캠프 8기 / 1팀
+> [플레이 데이터] 한화시스템 BEYOND SW캠프 8기 / Team Primary
   
 |[박준혁](https://github.com/monet2155) | [김도하](https://github.com/esueng) | [김은경](https://github.com/kuk329) | [이지정](https://github.com/leejijung) | [황지우](https://github.com/jbr1tr) |
 |------------------------------------------|--------------------------------------|------------------------------------------|-----------------------------------|-------------------------------------|
