@@ -34,13 +34,7 @@
 ----------
 
 ## 🐧 프로젝트 주요 기능
-<details>
-	<summary>요구사항 명세서</summary>
-	
-![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/0f6c79db-b703-483c-aa09-5a4713f208fd)
-<br>	
-[요구사항 명세](https://docs.google.com/spreadsheets/d/1-901JV0erwZaMJBfVRsbWhYAnOgtMyhiOb7uzIzZk0g/edit#gid=0)
-</details>
+
 
 #### 병원 찾기
 - 영업 시간, 점심 시간 기반 지금 갈 수 있는 병원 탐색
@@ -55,7 +49,13 @@
 #### 보호자 대리 예약
 - 보호자-피보호자 시스템으로 피보호자의 진료 대리 예약 가능
 
-
+<details>
+	<summary>요구사항 명세서</summary>
+	
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/0f6c79db-b703-483c-aa09-5a4713f208fd)
+<br>	
+[요구사항 명세](https://docs.google.com/spreadsheets/d/1-901JV0erwZaMJBfVRsbWhYAnOgtMyhiOb7uzIzZk0g/edit#gid=0)
+</details>
 
 
 ## 💻 프로젝트 구현
