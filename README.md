@@ -299,6 +299,7 @@ WHERE doctor_no=1;
 
   DELIMITER ;
 
+  -- CALL 예시 
   CALL AddAppointmentByGuardian(6, 1, '2024-06-02 08:30:00', '고혈압 증상', 1, 1, 'user06', 'user01');
   ```
   </div>
@@ -421,7 +422,7 @@ WHERE doctor_no=1;
 
   DELIMITER ;
 
-  -- update 예시 
+  -- UPDATE 예시 
   UPDATE appointment 
   SET appt_status = "rejected"
   WHERE appt_status = "waiting" AND hosp_no = 1 AND appt_no = 8;
@@ -429,6 +430,113 @@ WHERE doctor_no=1;
   </div>
   </details>
 
+  #### 예약 변경
+  <details>
+  <summary>환자 본인 진료 예약 변경</summary>
+  <div>
+   
+  * 예약 번호, 회원 아이디, 비밀번호가 일치하면 예약 변경 허용
+  ```sql
+
+  -- 사용자가 자신의 예약 정보 변경 
+  update appointment a
+  inner join user u
+  on u.user_no=a.user_no
+  set a.appt_symptom = '오늘 아침까지 열이났어요'
+  where  a.appt_no = 1 -- 특정 예약 식별값
+          and u.user_id='user01'   -- 유저 id
+          and u.user_pwd='password1' -- 유저 pwd
+          and u.user_no=1     -- 유저 고유식별값
+          and appt_status ='waiting'; -- 예약 상태
+  ```
+  </div>
+  </details>
+  <details>
+  <summary>보호자가 피보호자의 진료 예약 변경</summary>
+  <div>
+   
+  * 보호자 아이디, 보호자 비밀번호를 입력받고 해당 예약 내역에 대해 보호자 관계가 성립하면 예약 변경 허용
+  ```sql
+
+  update appointment
+  set appt_symptom = '오늘 아침까지 열이났어요'
+  where appt_status ='waiting' -- 예약 상태
+        and appt_no=1  -- 특정 예약 식별값
+        and user_no in (select ward_no    -- 특정 보호자의 피보호자 리스트
+                        from guardian g
+                        join user u on g.guard_no=u.user_no
+                        where u.user_id='user06'    -- 보호자 id
+                              and user_pwd='password6' -- 보호자 pwd
+                              and g.guard_allowed='completed') ; -- 예약 상태
+
+  ```
+  </div>
+  </details>
+
+  #### 예약 수락 / 거절
+  <details>
+  <summary>병원이 예약 수락 / 거절</summary>
+  <div>
+   
+  * 예약 번호를 입력받아 수락/거절 여부 결정 
+  ```sql
+
+  -- 예약 상태 변경 프로시저
+  DELIMITER $$
+  CREATE PROCEDURE change_appointment_status (
+      IN p_appt_no INT,
+      IN p_status enum('rejected','accepted'),
+      IN p_reason TEXT
+  )
+  BEGIN
+      -- 예약 상태 업데이트
+      UPDATE appointment
+      SET appt_status = p_status
+      WHERE appt_no = p_appt_no;
+
+      -- 거절인 경우 거절 사유 추가
+      IF p_status = 'rejected' THEN
+          INSERT INTO rejection (rejection_result, appt_no)
+          VALUES (p_reason, p_appt_no);
+      END IF;
+  END $$
+  DELIMITER ;
+
+
+  -- call 예시
+  call change_appointment_status(1,'accepted',NULL);
+
+  call change_appointment_status(1,'rejected','담당의사가 개인사정으로 오늘 휴진합니다.');
+
+  ```
+  </div>
+  </details>
+
+#### 진료기록 확인 
+  <details>
+  <summary>진료가 완료된 진료 기록 확인</summary>
+  <div>
+   
+  * 회원 아이디, 비밀번호를 입력받아 진료 기록 확인 
+  ```sql
+
+  select appt_date as '방문 날짜',
+       u.user_name as '사용자명',
+       h.hosp_name as '병원 이름',
+       d.doctor_name as '의사 이름',
+       ifnull(appt_symptom,'없음') as '증상',
+       m.record_diagnosis as '진단 내용',
+       m.record_treatment as '처방 내용'
+  from user u
+  left join appointment app on u.user_no=app.user_no
+  join hospital h on app.hosp_no = h.hosp_no
+  join doctor d on app.doctor_no=d.doctor_no
+  join medical_record m on app.appt_no = m.appt_no
+  where appt_status= 'complete' and u.user_id = 'user08' and u.user_pwd='password8';
+
+  ```
+  </div>
+  </details>
   
 
 ### 테스트 케이스
