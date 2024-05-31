@@ -54,6 +54,101 @@
 ### 주요 특징
 ### DB 모델링
 ### DDL 및 주요 쿼리
+#### time_interval
+<details>
+<summary> 접기/펼치기</summary>
+
+```
+-- 일주일간의 시간들 담을 테이블
+CREATE OR REPLACE TABLE time_interval (
+    half_hour DATETIME,
+    onactive ENUM('active', 'deactive'),
+    doctor_no INT,
+    FOREIGN KEY (doctor_no) REFERENCES doctor(doctor_no)
+);
+'''
+금일부터 일주일간의 시간들 생성 프로시저
+(오늘 이전은 삭제 오늘로부터 일주일 중 없는 시간이 있다면 생성,
+이미 테이블에 있는 시간에 대해서는 변동없음)
+'''
+
+DELIMITER $$
+
+CREATE OR REPLACE PROCEDURE loopwhile()
+BEGIN
+    DECLARE start_datetime DATETIME;
+    DECLARE end_datetime DATETIME;
+    DECLARE current_datetime DATETIME;
+
+    -- 시작과 종료 시간 설정
+    SET start_datetime = DATE(NOW());  -- 오늘 자정
+    SET end_datetime = DATE_ADD(start_datetime, INTERVAL 7 DAY);  -- 일주일 후
+
+    -- 오늘 이전의 데이터 삭제
+    DELETE FROM time_interval WHERE half_hour < start_datetime;
+
+    -- 의사별 일주일 간 30분 간격 데이터 삽입
+    WHILE start_datetime < end_datetime DO
+        INSERT INTO time_interval (half_hour, onactive, doctor_no)
+        SELECT start_datetime, 'deactive', doctor_no
+        FROM doctor
+        WHERE NOT EXISTS (
+            SELECT 1 FROM time_interval
+            WHERE half_hour = start_datetime AND doctor_no = doctor.doctor_no
+        );
+
+        -- 다음 30분 간격 설정
+        SET start_datetime = DATE_ADD(start_datetime, INTERVAL 30 MINUTE);
+    END WHILE;
+END$$
+
+DELIMITER ;
+
+-- 일주일 시간 업데이트 프로시저 실행
+CALL loopwhile();
+
+-- 근무시간 테이블 생성
+CREATE TABLE worktime (
+    doctor_no INT,
+    start_worktime DATETIME,
+    end_worktime DATETIME,
+    FOREIGN KEY (doctor_no) REFERENCES doctor(doctor_no)
+);
+
+DELIMITER $$
+
+-- 근무시간표가 업데이트 될 때 해당 사이 시간 active 로 변경
+CREATE TRIGGER activate_time_intervals
+AFTER INSERT ON worktime
+FOR EACH ROW
+BEGIN
+    -- time_interval 테이블의 onactive 상태를 'active'로 업데이트
+    UPDATE time_interval
+    SET onactive = 'active'
+    WHERE doctor_no = NEW.doctor_no
+      AND half_hour >= NEW.start_worktime
+      AND half_hour <= NEW.end_worktime;
+END$$
+
+DELIMITER ;
+
+-- 특정 의사의 특정 시간에 대해서 activate 하는 쿼리 ( deactive도 문제 없음 )
+UPDATE time_interval
+SET onactive = 'active'
+WHERE doctor_no = 1
+  AND half_hour = '2024-05-01 08:00:00';
+  
+-- worktime 테스트 케이스 삽입
+INSERT INTO worktime (doctor_no, start_worktime, end_worktime) VALUES
+(1, '2024-06-02 08:00:00', '2024-06-02 09:30:00');
+
+-- time_interval 테이블 업데이트 확인
+SELECT *
+FROM time_interval
+WHERE doctor_no=1;
+```
+</details>
+
 ### 테스트 케이스
 
 ## 👫 CO-OP
