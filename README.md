@@ -1,4 +1,4 @@
-![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/ba7f1037-e476-4e05-ac67-0abe4b56802a)# 파인닥 (Findoc)
+# 파인닥 (Findoc)
 
 ![인트로이미지](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/28796063/ac7970ba-df03-4250-b755-364d25dc31ac)
 
