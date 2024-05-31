@@ -89,7 +89,7 @@
 
 
 
-```
+```sql
 -- 일주일간의 시간들 담을 테이블
 CREATE OR REPLACE TABLE time_interval (
     half_hour DATETIME,
@@ -179,6 +179,238 @@ FROM time_interval
 WHERE doctor_no=1;
 ```
   </details>
+  
+  #### 병원 검색 
+  <details>
+  <summary>필터 기반 병원 검색</summary>
+  <div>
+   
+  * 수술실, MRI가 있는 외과 검색
+  ```sql
+
+  SELECT h.hosp_name AS "병원명",
+        w.worktime_start AS "진료 시작 시간",
+        w.worktime_end AS "진료 종료 시간",
+        dept.dept_name AS "진료 과목"
+  FROM hospital h
+  JOIN facility f ON h.hosp_no = f.hosp_no
+  JOIN equipment e ON h.hosp_no = e.hosp_no
+  JOIN doctor doc ON h.hosp_no = doc.hosp_no
+  JOIN doctor_dept dd ON doc.doctor_no = dd.doctor_no
+  JOIN department dept ON dd.dept_id = dept.dept_id
+  JOIN location l ON h.hosp_no = l.hosp_no
+  JOIN worktime w ON doc.doctor_no = w.doctor_no
+  WHERE f.facility_name = "수술실" AND e.equipment_name = "MRI" AND dept.dept_name = "외과";
+  ```
+  </div>
+  </details>
+
+  #### 병원 예약 
+  <details>
+  <summary>환자 본인 진료 예약</summary>
+  <div>
+   
+  * 해당 예약 시간에 선택한 담당의가 active이면 예약 가능 
+
+  ```sql
+
+  INSERT INTO appointment (appt_date, appt_symptom, user_no, hosp_no, doctor_no)
+  SELECT '2024-06-02 08:30:00', '복통', 6, 1, 1
+  WHERE EXISTS (
+    SELECT 1 
+    FROM time_interval 
+    WHERE half_hour = '2024-06-02 08:30:00'
+      AND doctor_no = 1
+      AND onactive = 'active'
+  ) AND EXISTS (SELECT 1 FROM doctor WHERE hosp_no=1 AND doctor_no=1);
+  ```
+  </div>
+  </details>
+  <details>
+  <summary>보호자가 피보호자의 진료 예약</summary>
+  <div>
+   
+  * 해당 예약 시간에 선택한 담당의가 active이고, 보호자 관계가 성립하면 예약 가능 
+
+  ```sql
+
+  DELIMITER //
+
+  CREATE PROCEDURE AddAppointmentByGuardian (
+      IN in_guard_no INT,
+      IN in_ward_no INT,
+      IN appt_date DATETIME,
+      IN appt_symptom VARCHAR(50),
+      IN hosp_no INT,
+      IN doctor_no INT,
+      IN guard_ID VARCHAR(20),
+      IN ward_ID VARCHAR(20)
+  )
+  BEGIN
+      DECLARE guard_exist INT;
+      DECLARE doctor_time INT;
+
+      -- 보호자와 피보호자 관계 확인
+      SELECT COUNT(*) INTO guard_exist
+      FROM `guardian`
+      WHERE `guard_no` = in_guard_no
+        AND `ward_no` = in_ward_no;
+
+      -- 의사의 활성화된 시간 확인
+      SELECT COUNT(*) INTO doctor_time
+      FROM time_interval 
+      WHERE half_hour = appt_date
+        AND doctor_no = doctor_no
+        AND onactive = 'active';
+
+      IF guard_exist > 0 AND doctor_time > 0 THEN
+          -- 피보호자를 대신하여 예약 신청
+          INSERT INTO `appointment` 
+          (appt_date, appt_status, appt_symptom, user_no, hosp_no, doctor_no, guard_ID, ward_ID)
+          VALUES
+          (appt_date, 'waiting', appt_symptom, in_ward_no, hosp_no, doctor_no, guard_ID, ward_ID);
+      ELSEIF doctor_time = 0 THEN
+          SIGNAL SQLSTATE '45000'
+          SET MESSAGE_TEXT = 'Deactive time';
+      ELSEIF guard_exist = 0 THEN 
+          SIGNAL SQLSTATE '45000'
+          SET MESSAGE_TEXT = 'Invalid guardian or ward relationship.';
+      END IF;
+  END //
+
+  DELIMITER ;
+
+  CALL AddAppointmentByGuardian(6, 1, '2024-06-02 08:30:00', '고혈압 증상', 1, 1, 'user06', 'user01');
+  ```
+  </div>
+  </details>
+  <details>
+  <summary>병원이 진료 예약 확인</summary>
+  <div>
+   
+  * 병원 ID를 통해 예약 내역 확인 
+  ```sql
+
+  SELECT h.hosp_name AS "병원명",
+	    a.appt_date AS "예약일시",
+	    u.user_name AS "환자명",
+	    a.appt_symptom AS "증상",
+	    u.user_phone AS "환자 전화번호",
+	    u.user_disease AS "기저질환",
+	    a.appt_status AS "예약상태" 
+  FROM hospital h
+  JOIN appointment a ON h.hosp_no = a.hosp_no
+  JOIN user u ON u.user_no = a.user_no
+  WHERE h.hosp_id = 'hosp03';
+  ```
+  </div>
+  </details>
+
+  #### 예약 취소 
+  <details>
+  <summary>환자 본인 진료 예약 취소</summary>
+  <div>
+   
+  * 예약 번호, 회원 아이디, 비밀번호가 일치하면 예약 취소 허용
+  ```sql
+
+  DELETE FROM `appointment`
+  WHERE `appt_no` = 7
+    AND `appt_status` = 'waiting' OR `appt_status` = 'accepted'
+    AND `user_no` = (SELECT `user_no` 
+                    FROM `user` 
+                    WHERE `user_name` = '박민형' 
+                      AND `user_id` = 'user03' 
+                      AND `user_pwd` = 'password3');
+  SELECT * FROM appointment;
+  ```
+  </div>
+  </details>
+  <details>
+  <summary>보호자가 피보호자의 진료 예약 취소</summary>
+  <div>
+  
+  * 보호자 아이디, 보호자 비밀번호를 입력받고 해당 예약 내역에 대해 보호자 관계가 성립하면 예약 취소 허용
+  ```sql
+
+  DELIMITER //
+
+  CREATE PROCEDURE CancelAppointmentByGuardian (
+      IN guard_no INT,
+      IN guard_id VARCHAR(50),
+      IN guard_password VARCHAR(50),
+      IN ward_no INT,
+      IN appt_no INT
+  )
+  BEGIN
+      DECLARE guard_exist INT;
+      DECLARE appointment_exist INT;
+
+      -- 보호자 자격 및 ID와 비밀번호 확인
+      SELECT COUNT(*) INTO guard_exist
+      FROM `guardian` g
+      JOIN `user` u ON g.guard_no = u.user_no
+      WHERE g.guard_no = guard_no
+        AND u.user_id = guard_id
+        AND u.user_pwd = guard_password
+        AND g.ward_no = ward_no
+        AND g.guard_allowed = 'completed';
+
+      -- 예약이 존재하는지 확인
+      SELECT COUNT(*) INTO appointment_exist
+      FROM `appointment`
+      WHERE appt_no = appt_no
+        AND user_no = ward_no;
+        
+      IF guard_exist > 0 AND appointment_exist > 0 THEN
+          -- appointment 테이블에서 해당 예약에 대한 레코드 삭제
+          DELETE FROM `appointment`
+          WHERE appt_no = appt_no
+            AND user_no = ward_no
+        AND appt_status = 'waiting';
+      ELSE
+          SIGNAL SQLSTATE '45000'
+          SET MESSAGE_TEXT = 'Invalid guardian credentials or relationship, or appointment does not exist.';
+      END IF;
+  END //
+
+  DELIMITER ;
+
+  -- CALL 예시
+  CALL CancelAppointmentByGuardian(6, 'user06', 'password6', 1, 10);
+  ```
+  </div>
+  </details>
+<details>
+  <summary>병원이 진료 예약 거절</summary>
+  <div>
+  
+  * appointment 테이블에서 appt_status가 rejected로 변경되면 rejection 테이블에 해당 거절 내역 추가 
+  ```sql
+
+  DELIMITER $$
+
+  CREATE TRIGGER after_appointment_update
+  AFTER UPDATE ON appointment
+  FOR EACH ROW
+  BEGIN
+      IF NEW.appt_status = 'rejected' AND OLD.appt_status = 'waiting' THEN
+          INSERT INTO rejection (rejection_result, appt_no)
+          VALUES ('Reservation cancelled by hospital', NEW.appt_no);
+      END IF;
+  END $$
+
+  DELIMITER ;
+
+  -- update 예시 
+  UPDATE appointment 
+  SET appt_status = "rejected"
+  WHERE appt_status = "waiting" AND hosp_no = 1 AND appt_no = 8;
+  ```
+  </div>
+  </details>
+
+  
 
 ### 테스트 케이스
 <details>
