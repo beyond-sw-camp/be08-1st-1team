@@ -167,6 +167,7 @@ WHERE doctor_no=1;
 ### 테스트 케이스
 <details>
   <summary> User Table </summary>
+  
   | user_id     | user_pwd     | user_name     | user_birthdate | user_addr         | user_phone   | user_disease   | user_medicine  |
 |-------------|--------------|---------------|----------------|-------------------|--------------|----------------|----------------|
 | john_doe    | password123  | John Doe      | 1985-02-15     | 1234 Broadway St  | 01012345678  | Asthma         | Ventolin       |
@@ -183,6 +184,7 @@ WHERE doctor_no=1;
 </details>
 <details>
   <summary> Guardian Table</summary>
+  
   | guard_no | ward_no | guard_relationship | guard_allowed |
 |----------|---------|--------------------|---------------|
 | 1        | 2       | Parent             | completed     |
@@ -195,6 +197,7 @@ WHERE doctor_no=1;
 </details>
 <details>
   <summary>Hospital Table</summary>
+  
   | hosp_id    | hosp_pwd    | hosp_name                 | hosp_phone |
 |------------|-------------|---------------------------|------------|
 | bestcare   | hosp1234    | Best Care Medical Center  | 021234567  |
