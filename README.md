@@ -206,6 +206,140 @@ WHERE doctor_no=1;
 | greenmed   | green2023   | Green Medical Services    | 027891011  |
 | bluestar   | blue1234    | Blue Star Hospital        | 028765432  |
 </details>
+
+<details>
+  <summary> Location Table </summary>
+
+  | loc_addr            | loc_lat | loc_long  | hosp_no |
+|---------------------|---------|-----------|---------|
+| 6789 Hospital Rd    | 37.7749 | -122.4194 | 1       |
+| 123 Health Blvd     | 40.7128 | -74.0060  | 2       |
+| 456 Clinic Rd       | 34.0522 | -118.2437 | 3       |
+| 500 Clinic Center Dr| 39.9042 | -75.1698  | 4       |
+| 1200 Health Park    | 33.6844 | -117.8265 | 5       |
+
+</details>
+
+<details>
+  <summary> Notice Table</summary>
+
+  | notice_datetime | notice_body                        | hosp_no |
+|-----------------|------------------------------------|---------|
+| NOW()           | Please wear a mask.                | 1       |
+| NOW()           | Flu shots available.               | 2       |
+| NOW()           | New COVID-19 guidelines updated.   | 3       |
+| NOW()           | Annual health checkup discount event.| 4    |
+| NOW()           | COVID-19 vaccination available.    | 5       |
+
+</details>
+
+<details>
+  <summary>Facility Table</summary>
+
+  | facility_name       | hosp_no |
+|---------------------|---------|
+| Emergency Room      | 1       |
+| Intensive Care Unit | 2       |
+| Pediatrics Wing     | 3       |
+| Maternity Ward      | 4       |
+| Oncology Center     | 5       |
+
+  
+</details>
+
+<details>
+  <summary>Equipment Table</summary>
+  
+  | equipment_name | hosp_no |
+|----------------|---------|
+| MRI Scanner    | 1       |
+| Ultrasound     | 2       |
+| X-Ray Machine  | 3       |
+| CT Scanner     | 4       |
+| ECG Machine    | 5       |
+
+</details>
+<details>
+  <summary>Department Table</summary>
+
+  | dept_id | dept_name   |
+|---------|-------------|
+| cardio  | Cardiology  |
+| gynae   | Gynecology  |
+| ortho   | Orthopedics |
+
+</details>
+<details>
+  <summary>Doctor Table</summary>
+
+  | hosp_no | doctor_name       | doctor_gender |
+|---------|-------------------|---------------|
+| 1       | Dr. Alice Johnson | F             |
+| 2       | Dr. Emily White   | F             |
+| 3       | Dr. Robert Green  | M             |
+| 4       | Dr. Charlotte Johnson | F         |
+| 5       | Dr. Henry Martinez| M             |
+
+</details>
+<details>
+  <summary>Doctor Departmentw Table</summary>
+
+  | doctor_no | dept_id | docdept_room |
+|-----------|---------|--------------|
+| 1         | cardio  | 101A         |
+| 2         | gynae   | 202B         |
+| 3         | ortho   | 303C         |
+| 4         | gynae   | 403D         |
+| 5         | ortho   | 505E         |
+
+</details>
+<details>
+  <summary>Worktime Table</summary>  
+
+  | worktime_start       | worktime_end         | doctor_no |
+|----------------------|----------------------|-----------|
+| 2023-01-01 08:00:00  | 2023-01-01 16:00:00  | 1         |
+| 2023-01-02 09:00:00  | 2023-01-02 17:00:00  | 2         |
+| 2023-01-03 10:00:00  | 2023-01-03 18:00:00  | 3         |
+| 2023-01-04 08:00:00  | 2023-01-04 14:00:00  | 4         |
+| 2023-01-05 12:00:00  | 2023-01-05 18:00:00  | 5         |
+
+</details>
+<details>
+  <summary>Appointment Table</summary>
+
+  | appt_date            | appt_symptom      | user_no | hosp_no | doctor_no |
+|----------------------|-------------------|---------|---------|-----------|
+| 2023-12-15 10:00:00  | Cough and fever   | 1       | 1       | 1         |
+| 2023-12-20 11:00:00  | Headache          | 2       | 2       | 2         |
+| 2023-12-21 12:00:00  | Broken leg        | 3       | 3       | 3         |
+| 2023-12-22 14:00:00  | Regular checkup   | 4       | 4       | 4         |
+| 2023-12-23 15:00:00  | Chemotherapy session | 5   | 5       | 5         |
+
+</details>
+<details>
+  <summary>Medical Record Table</summary>
+
+  | record_diagnosis | record_treatment    | appt_no |
+|------------------|---------------------|---------|
+| Flu              | Rest and medication | 1       |
+| Migraine         | Prescribed pain relief | 2     |
+| Leg fracture     | Surgery required    | 3       |
+| General checkup  | All clear           | 4       |
+| Cancer treatment | Chemotherapy        | 5       |
+
+</details>
+<details>
+  <summary>Rejection Table</summary>
+
+  | rejection_result                  | appt_no |
+|-----------------------------------|---------|
+| Doctor unavailable on requested date | 1     |
+| Unavailable for requested time    | 2       |
+| Doctor on leave                   | 3       |
+
+</details>
+
 ## 👫 CO-OP
 ### WBS
 <details>
