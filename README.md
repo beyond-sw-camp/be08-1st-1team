@@ -257,8 +257,8 @@ BEGIN
 	    SELECT 1 FROM time_interval
 	    WHERE half_hour = start_datetime AND doctor_no = doctor.doctor_no
 	);
-
-\	-- 다음 30분 간격 설정
+\
+	-- 다음 30분 간격 설정
 	SET start_datetime = DATE_ADD(start_datetime, INTERVAL 30 MINUTE);
     END WHILE;-->
 END$$
@@ -353,7 +353,7 @@ WHERE doctor_no=1;</code></pre>
 | medicore   | secure1234  | MediCore Facility         | 024567890  |
 | greenmed   | green2023   | Green Medical Services    | 027891011  |
 | bluestar   | blue1234    | Blue Star Hospital        | 028765432  |
-	</details>
+</details>
 	
 <details>
 	<summary> Location Table </summary>
