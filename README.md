@@ -362,7 +362,8 @@ WHERE doctor_no=1;
 <details>
   <summary>PK,FK</summary>
 
-'''
+<code><pre>
+
 ALTER TABLE `user` ADD CONSTRAINT `PK_USER` PRIMARY KEY (
 	`no_user`
 );
@@ -393,7 +394,7 @@ ALTER TABLE `guardians` ADD CONSTRAINT `FK_user_TO_guardians_1` FOREIGN KEY (
 REFERENCES `user` (
 	`no_user`
 );
-'''
+</code><pre>
 </details>
 
 ## 👫 CO-OP
