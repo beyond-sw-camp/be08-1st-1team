@@ -1,4 +1,4 @@
-# 파인닥 (Findoc)
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/ba7f1037-e476-4e05-ac67-0abe4b56802a)# 파인닥 (Findoc)
 
 ![인트로이미지](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/28796063/ac7970ba-df03-4250-b755-364d25dc31ac)
 
@@ -34,8 +34,13 @@
 ----------
 
 ## 🐧 프로젝트 주요 기능
+<details>
+	<summary>요구사항 명세서</summary>
+	
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/0f6c79db-b703-483c-aa09-5a4713f208fd)
+<br>	
 [요구사항 명세](https://docs.google.com/spreadsheets/d/1-901JV0erwZaMJBfVRsbWhYAnOgtMyhiOb7uzIzZk0g/edit#gid=0)
-
+</details>
 #### 병원 찾기
 - 영업 시간, 점심 시간 기반 지금 갈 수 있는 병원 탐색
 - 병원 정보, 진료 과목 등 다양한 조건으로 병원 검색
@@ -60,6 +65,7 @@
     
   </summary>
   https://docs.google.com/spreadsheets/d/1hpVTMaa_74JfIQDtYtLpZEWX7O0yWWgvPrazUaNrMxc/edit#gid=1835326347
+<br>
   
   ![wbs](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/6ed5b4dd-06af-4889-93bd-82d9ee2614ea)
 
