@@ -80,7 +80,7 @@
 	<summary> DDL</summary>
 	<pre><code>
 		
--- 유저 (user) 테이블 생성
+<!-- 유저 (user) 테이블 생성
 CREATE TABLE `user` (
 	`no_user`	INT	NOT NULL,
 	`password_user`	VARCHAR	NOT NULL,
@@ -210,7 +210,7 @@ ALTER TABLE `guardians` ADD CONSTRAINT `FK_user_TO_guardians_1` FOREIGN KEY (
 )
 REFERENCES `user` (
 	`no_user`
-);</code></pre>
+);--></code></pre>
 </details>
 <details>
     <summary> time_interval</summary>
@@ -219,13 +219,13 @@ REFERENCES `user` (
       <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/ccaed4d3-bcc1-403a-aa5b-266084773362" alt="Description of second image" width="300"/>
     </p>
 	<pre><code>
--- 일주일간의 시간들 담을 테이블
+<!-- 일주일간의 시간들 담을 테이블
 CREATE OR REPLACE TABLE time_interval (
     half_hour DATETIME,
     onactive ENUM('active', 'deactive'),
     doctor_no INT,
     FOREIGN KEY (doctor_no) REFERENCES doctor(doctor_no)
-);
+);-->
 '''
 금일부터 일주일간의 시간들 생성 프로시저
 (오늘 이전은 삭제 오늘로부터 일주일 중 없는 시간이 있다면 생성,
@@ -240,7 +240,7 @@ BEGIN
     DECLARE end_datetime DATETIME;
     DECLARE current_datetime DATETIME;
     
-    -- 시작과 종료 시간 설정
+    <!-- 시작과 종료 시간 설정
     SET start_datetime = DATE(NOW());  -- 오늘 자정
     SET end_datetime = DATE_ADD(start_datetime, INTERVAL 7 DAY);  -- 일주일 후
 
@@ -259,7 +259,7 @@ BEGIN
 
 	-- 다음 30분 간격 설정
 	SET start_datetime = DATE_ADD(start_datetime, INTERVAL 30 MINUTE);
-    END WHILE;
+    END WHILE;-->
 END$$
 
 DELIMITER ;
@@ -332,138 +332,138 @@ WHERE doctor_no=1;</code></pre>
 	<details>
 		<summary> Guardian Table</summary>
 	  
-			| guard_no | ward_no | guard_relationship | guard_allowed |
-			|----------|---------|--------------------|---------------|
-			| 1        | 2       | Parent             | completed     |
-			| 2        | 3       | Sibling            | completed     |
-			| 1        | 4       | Child              | waiting       |
-			| 4        | 5       | Parent             | completed     |
-			| 6        | 7       | Spouse             | completed     |
-			| 8        | 9       | Child              | waiting       |
+| guard_no | ward_no | guard_relationship | guard_allowed |
+|----------|---------|--------------------|---------------|
+| 1        | 2       | Parent             | completed     |
+| 2        | 3       | Sibling            | completed     |
+| 1        | 4       | Child              | waiting       |
+| 4        | 5       | Parent             | completed     |
+| 6        | 7       | Spouse             | completed     |
+| 8        | 9       | Child              | waiting       |
 	
 </details>
 	<details>
 		<summary>Hospital Table</summary>
 	  
-			| hosp_id    | hosp_pwd    | hosp_name                 | hosp_phone |
-			|------------|-------------|---------------------------|------------|
-			| bestcare   | hosp1234    | Best Care Medical Center  | 021234567  |
-			| cityhealth | citypass    | City Health Clinic        | 023456789  |
-			| medicore   | secure1234  | MediCore Facility         | 024567890  |
-			| greenmed   | green2023   | Green Medical Services    | 027891011  |
-			| bluestar   | blue1234    | Blue Star Hospital        | 028765432  |
+| hosp_id    | hosp_pwd    | hosp_name                 | hosp_phone |
+|------------|-------------|---------------------------|------------|
+| bestcare   | hosp1234    | Best Care Medical Center  | 021234567  |
+| cityhealth | citypass    | City Health Clinic        | 023456789  |
+| medicore   | secure1234  | MediCore Facility         | 024567890  |
+| greenmed   | green2023   | Green Medical Services    | 027891011  |
+| bluestar   | blue1234    | Blue Star Hospital        | 028765432  |
 	</details>
 	
-	<details>
-		<summary> Location Table </summary>
+<details>
+	<summary> Location Table </summary>
 	
-			| loc_addr            | loc_lat | loc_long  | hosp_no |
-			|---------------------|---------|-----------|---------|
-			| 6789 Hospital Rd    | 37.7749 | -122.4194 | 1       |
-			| 123 Health Blvd     | 40.7128 | -74.0060  | 2       |
-			| 456 Clinic Rd       | 34.0522 | -118.2437 | 3       |
-			| 500 Clinic Center Dr| 39.9042 | -75.1698  | 4       |
-			| 1200 Health Park    | 33.6844 | -117.8265 | 5       |
+| loc_addr            | loc_lat | loc_long  | hosp_no |
+|---------------------|---------|-----------|---------|
+| 6789 Hospital Rd    | 37.7749 | -122.4194 | 1       |
+| 123 Health Blvd     | 40.7128 | -74.0060  | 2       |
+| 456 Clinic Rd       | 34.0522 | -118.2437 | 3       |
+| 500 Clinic Center Dr| 39.9042 | -75.1698  | 4       |
+| 1200 Health Park    | 33.6844 | -117.8265 | 5       |
 	
-	</details>
+</details>
 	
-	<details>
-		<summary> Notice Table</summary>
+<details>
+	<summary> Notice Table</summary>
 	
-			| notice_datetime | notice_body                        | hosp_no |
-			|-----------------|------------------------------------|---------|
-			| NOW()           | Please wear a mask.                | 1       |
-			| NOW()           | Flu shots available.               | 2       |
-			| NOW()           | New COVID-19 guidelines updated.   | 3       |
-			| NOW()           | Annual health checkup discount event.| 4    |
-			| NOW()           | COVID-19 vaccination available.    | 5       |
+| notice_datetime | notice_body                        | hosp_no |
+|-----------------|------------------------------------|---------|
+| NOW()           | Please wear a mask.                | 1       |
+| NOW()           | Flu shots available.               | 2       |
+| NOW()           | New COVID-19 guidelines updated.   | 3       |
+| NOW()           | Annual health checkup discount event.| 4    |
+| NOW()           | COVID-19 vaccination available.    | 5       |
 	
-	</details>
+</details>
 	
-	<details>
-		<summary>Facility Table</summary>
+<details>
+	<summary>Facility Table</summary>
 	
-			| facility_name       | hosp_no |
-			|---------------------|---------|
-			| Emergency Room      | 1       |
-			| Intensive Care Unit | 2       |
-			| Pediatrics Wing     | 3       |
-			| Maternity Ward      | 4       |
-			| Oncology Center     | 5       |
+| facility_name       | hosp_no |
+|---------------------|---------|
+| Emergency Room      | 1       |
+| Intensive Care Unit | 2       |
+| Pediatrics Wing     | 3       |
+| Maternity Ward      | 4       |
+| Oncology Center     | 5       |
 	
 	  
-	</details>
+</details>
 	
-	<details>
-		<summary>Equipment Table</summary>
+<details>
+	<summary>Equipment Table</summary>
 	  
-			| equipment_name | hosp_no |
-			|----------------|---------|
-			| MRI Scanner    | 1       |
-			| Ultrasound     | 2       |
-			| X-Ray Machine  | 3       |
-			| CT Scanner     | 4       |
-			| ECG Machine    | 5       |
+| equipment_name | hosp_no |
+|----------------|---------|
+| MRI Scanner    | 1       |
+| Ultrasound     | 2       |
+| X-Ray Machine  | 3       |
+| CT Scanner     | 4       |
+| ECG Machine    | 5       |
 	
-	</details>
-	<details>
-		<summary>Department Table</summary>
+</details>
+<details>
+	<summary>Department Table</summary>
 	
-			| dept_id | dept_name   |
-			|---------|-------------|
-			| cardio  | Cardiology  |
-			| gynae   | Gynecology  |
-			| ortho   | Orthopedics |
+| dept_id | dept_name   |
+|---------|-------------|
+| cardio  | Cardiology  |
+| gynae   | Gynecology  |
+| ortho   | Orthopedics |
 	
-	</details>
-	<details>
-		<summary>Doctor Table</summary>
+</details>
+<details>
+	<summary>Doctor Table</summary>
 	
-			| hosp_no | doctor_name       | doctor_gender |
-			|---------|-------------------|---------------|
-			| 1       | Dr. Alice Johnson | F             |
-			| 2       | Dr. Emily White   | F             |
-			| 3       | Dr. Robert Green  | M             |
-			| 4       | Dr. Charlotte Johnson | F         |
-			| 5       | Dr. Henry Martinez| M             |
+| hosp_no | doctor_name       | doctor_gender |
+|---------|-------------------|---------------|
+| 1       | Dr. Alice Johnson | F             |
+| 2       | Dr. Emily White   | F             |
+| 3       | Dr. Robert Green  | M             |
+| 4       | Dr. Charlotte Johnson | F         |
+| 5       | Dr. Henry Martinez| M             |
 	
-	</details>
-	<details>
-		<summary>Doctor Departmentw Table</summary>
+</details>
+<details>
+	<summary>Doctor Departmentw Table</summary>
 	
-			| doctor_no | dept_id | docdept_room |
-			|-----------|---------|--------------|
-			| 1         | cardio  | 101A         |
-			| 2         | gynae   | 202B         |
-			| 3         | ortho   | 303C         |
-			| 4         | gynae   | 403D         |
-			| 5         | ortho   | 505E         |
+| doctor_no | dept_id | docdept_room |
+|-----------|---------|--------------|
+| 1         | cardio  | 101A         |
+| 2         | gynae   | 202B         |
+| 3         | ortho   | 303C         |
+| 4         | gynae   | 403D         |
+| 5         | ortho   | 505E         |
 	
-	</details>
-	<details>
-		<summary>Worktime Table</summary>  
+</details>
+<details>
+	<summary>Worktime Table</summary>  
 	
-			| worktime_start       | worktime_end         | doctor_no |
-			|----------------------|----------------------|-----------|
-			| 2023-01-01 08:00:00  | 2023-01-01 16:00:00  | 1         |
-			| 2023-01-02 09:00:00  | 2023-01-02 17:00:00  | 2         |
-			| 2023-01-03 10:00:00  | 2023-01-03 18:00:00  | 3         |
-			| 2023-01-04 08:00:00  | 2023-01-04 14:00:00  | 4         |
-			| 2023-01-05 12:00:00  | 2023-01-05 18:00:00  | 5         |
+| worktime_start       | worktime_end         | doctor_no |
+|----------------------|----------------------|-----------|
+| 2023-01-01 08:00:00  | 2023-01-01 16:00:00  | 1         |
+| 2023-01-02 09:00:00  | 2023-01-02 17:00:00  | 2         |
+| 2023-01-03 10:00:00  | 2023-01-03 18:00:00  | 3         |
+| 2023-01-04 08:00:00  | 2023-01-04 14:00:00  | 4         |
+| 2023-01-05 12:00:00  | 2023-01-05 18:00:00  | 5         |
 	
-	</details>
-	<details>
-		<summary>Appointment Table</summary>
+</details>
+<details>
+	<summary>Appointment Table</summary>
 	
-			| appt_date            | appt_symptom      | user_no | hosp_no | doctor_no |
-			|----------------------|-------------------|---------|---------|-----------|
-			| 2023-12-15 10:00:00  | Cough and fever   | 1       | 1       | 1         |
-			| 2023-12-20 11:00:00  | Headache          | 2       | 2       | 2         |
-			| 2023-12-21 12:00:00  | Broken leg        | 3       | 3       | 3         |
-			| 2023-12-22 14:00:00  | Regular checkup   | 4       | 4       | 4         |
-			| 2023-12-23 15:00:00  | Chemotherapy session | 5   | 5       | 5         |
+| appt_date            | appt_symptom      | user_no | hosp_no | doctor_no |
+|----------------------|-------------------|---------|---------|-----------|
+| 2023-12-15 10:00:00  | Cough and fever   | 1       | 1       | 1         |
+| 2023-12-20 11:00:00  | Headache          | 2       | 2       | 2         |
+| 2023-12-21 12:00:00  | Broken leg        | 3       | 3       | 3         |
+| 2023-12-22 14:00:00  | Regular checkup   | 4       | 4       | 4         |
+| 2023-12-23 15:00:00  | Chemotherapy session | 5   | 5       | 5         |
 	
-	</details>
+</details>
 	<details>
 		<summary>Medical Record Table</summary>
 	
