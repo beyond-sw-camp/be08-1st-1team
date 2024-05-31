@@ -53,10 +53,10 @@
 <!-- 구동 움짤 -->
 ### 주요 특징
 <details>
-  <summary>### DB 모델링</summary>
+###  <summary> DB 모델링</summary>
 </details>
 <details>
-<summary>### DDL 및 주요 쿼리 </summary>
+### <summary> DDL 및 주요 쿼리 </summary>
   <details>
     <summary> time_interval</summary>
   </details>
