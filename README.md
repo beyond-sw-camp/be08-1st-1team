@@ -79,6 +79,7 @@
 <details>
 	<summary> DDL</summary>
 	<pre><code>
+		
 -- 유저 (user) 테이블 생성
 CREATE TABLE `user` (
 	`no_user`	INT	NOT NULL,
@@ -238,7 +239,7 @@ BEGIN
     DECLARE start_datetime DATETIME;
     DECLARE end_datetime DATETIME;
     DECLARE current_datetime DATETIME;
-
+    
     -- 시작과 종료 시간 설정
     SET start_datetime = DATE(NOW());  -- 오늘 자정
     SET end_datetime = DATE_ADD(start_datetime, INTERVAL 7 DAY);  -- 일주일 후
@@ -311,23 +312,23 @@ WHERE doctor_no=1;</code></pre>
 <details>
   <summary>Tables</summary>
 
-	<details>
-		<summary> User Table </summary>
+<details>
+	<summary> User Table </summary>
 	  
-			| user_id     | user_pwd     | user_name     | user_birthdate | user_addr         | user_phone   | user_disease   | user_medicine  |
-			|-------------|--------------|---------------|----------------|-------------------|--------------|----------------|----------------|
-			| john_doe    | password123  | John Doe      | 1985-02-15     | 1234 Broadway St  | 01012345678  | Asthma         | Ventolin       |
-			| jane_smith  | password123  | Jane Smith    | 1990-08-25     | 2345 Maple Ave    | 01098765432  | Diabetes       | Metformin      |
-			| susan_lee   | password789  | Susan Lee     | 1975-05-22     | 7890 Elm St       | 0105556677   | Hypertension   | Lisinopril     |
-			| mike_brown  | mike1234     | Mike Brown    | 1988-11-16     | 4567 Pine St      | 0108765432   | None           | NULL           |
-			| lisa_ray    | lisa9876     | Lisa Ray      | 1992-03-30     | 321 Oak St        | 0102345678   | Allergies      | Cetirizine     |
-			| alex_gray   | alexpass     | Alex Gray     | 1983-09-12     | 1579 River Rd     | 0105647382   | None           | NULL           |
-			| emma_white  | emma1234     | Emma White    | 1995-07-20     | 2020 Sunset Blvd  | 0104321567   | Eczema         | Hydrocortisone |
-			| noah_wilson | noahpass     | Noah Wilson   | 1980-01-05     | 450 Mountain View | 0109876543   | Anxiety        | Zoloft         |
-			| olivia_harris | oliviah123 | Olivia Harris | 1992-11-10     | 789 East Dr       | 0106667778   | Asthma         | Ventolin       |
-			| james_lopez | jamesl456    | James Lopez   | 1979-08-23     | 321 West St       | 0102223334   | Diabetes       | Insulin        |
+| user_id     | user_pwd     | user_name     | user_birthdate | user_addr         | user_phone   | user_disease   | user_medicine  |
+|-------------|--------------|---------------|----------------|-------------------|--------------|----------------|----------------|
+| john_doe    | password123  | John Doe      | 1985-02-15     | 1234 Broadway St  | 01012345678  | Asthma         | Ventolin       |
+| jane_smith  | password123  | Jane Smith    | 1990-08-25     | 2345 Maple Ave    | 01098765432  | Diabetes       | Metformin      |
+| susan_lee   | password789  | Susan Lee     | 1975-05-22     | 7890 Elm St       | 0105556677   | Hypertension   | Lisinopril     |
+| mike_brown  | mike1234     | Mike Brown    | 1988-11-16     | 4567 Pine St      | 0108765432   | None           | NULL           |
+| lisa_ray    | lisa9876     | Lisa Ray      | 1992-03-30     | 321 Oak St        | 0102345678   | Allergies      | Cetirizine     |
+| alex_gray   | alexpass     | Alex Gray     | 1983-09-12     | 1579 River Rd     | 0105647382   | None           | NULL           |
+| emma_white  | emma1234     | Emma White    | 1995-07-20     | 2020 Sunset Blvd  | 0104321567   | Eczema         | Hydrocortisone |
+| noah_wilson | noahpass     | Noah Wilson   | 1980-01-05     | 450 Mountain View | 0109876543   | Anxiety        | Zoloft         |
+| olivia_harris | oliviah123 | Olivia Harris | 1992-11-10     | 789 East Dr       | 0106667778   | Asthma         | Ventolin       |
+| james_lopez | jamesl456    | James Lopez   | 1979-08-23     | 321 West St       | 0102223334   | Diabetes       | Insulin        |
 	
-	</details>
+</details>
 	<details>
 		<summary> Guardian Table</summary>
 	  
@@ -340,7 +341,7 @@ WHERE doctor_no=1;</code></pre>
 			| 6        | 7       | Spouse             | completed     |
 			| 8        | 9       | Child              | waiting       |
 	
-	</details>
+</details>
 	<details>
 		<summary>Hospital Table</summary>
 	  
