@@ -34,7 +34,14 @@
 ----------
 
 ## 🐧 프로젝트 주요 기능
+<details>
+	<summary>요구사항 명세서</summary>
+	
+ ![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/492654b2-0f72-496c-994e-8edd8dcbb1f5)
+<br>
 [요구사항 명세](https://docs.google.com/spreadsheets/d/1-901JV0erwZaMJBfVRsbWhYAnOgtMyhiOb7uzIzZk0g/edit#gid=0)
+</details>
+
 
 #### 병원 찾기
 - 영업 시간, 점심 시간 기반 지금 갈 수 있는 병원 탐색
@@ -51,6 +58,18 @@
 
 ## 💻 프로젝트 구현
 <!-- 구동 움짤 -->
+### WBS
+<details>
+  <summary>접기/펼치기
+    
+  </summary>
+  https://docs.google.com/spreadsheets/d/1hpVTMaa_74JfIQDtYtLpZEWX7O0yWWgvPrazUaNrMxc/edit#gid=1835326347
+  
+  ![wbs](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/6ed5b4dd-06af-4889-93bd-82d9ee2614ea)
+
+</details>
+
+
 ### 주요 특징
 
 ### DB 모델링
@@ -594,16 +613,6 @@ WHERE doctor_no=1;
 
 ## 👫 CO-OP
 
-### WBS
-<details>
-  <summary>접기/펼치기
-    
-  </summary>
-  https://docs.google.com/spreadsheets/d/1hpVTMaa_74JfIQDtYtLpZEWX7O0yWWgvPrazUaNrMxc/edit#gid=1835326347
-  
-  ![wbs](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/6ed5b4dd-06af-4889-93bd-82d9ee2614ea)
-
-</details>
 
 ### 회고
 |팀원|회고록|
