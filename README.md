@@ -165,7 +165,44 @@ WHERE doctor_no=1;
 </details>
 
 ### 테스트 케이스
+<details>
+  <summary> User Table </summary>
+  | user_id     | user_pwd     | user_name     | user_birthdate | user_addr         | user_phone   | user_disease   | user_medicine  |
+|-------------|--------------|---------------|----------------|-------------------|--------------|----------------|----------------|
+| john_doe    | password123  | John Doe      | 1985-02-15     | 1234 Broadway St  | 01012345678  | Asthma         | Ventolin       |
+| jane_smith  | password123  | Jane Smith    | 1990-08-25     | 2345 Maple Ave    | 01098765432  | Diabetes       | Metformin      |
+| susan_lee   | password789  | Susan Lee     | 1975-05-22     | 7890 Elm St       | 0105556677   | Hypertension   | Lisinopril     |
+| mike_brown  | mike1234     | Mike Brown    | 1988-11-16     | 4567 Pine St      | 0108765432   | None           | NULL           |
+| lisa_ray    | lisa9876     | Lisa Ray      | 1992-03-30     | 321 Oak St        | 0102345678   | Allergies      | Cetirizine     |
+| alex_gray   | alexpass     | Alex Gray     | 1983-09-12     | 1579 River Rd     | 0105647382   | None           | NULL           |
+| emma_white  | emma1234     | Emma White    | 1995-07-20     | 2020 Sunset Blvd  | 0104321567   | Eczema         | Hydrocortisone |
+| noah_wilson | noahpass     | Noah Wilson   | 1980-01-05     | 450 Mountain View | 0109876543   | Anxiety        | Zoloft         |
+| olivia_harris | oliviah123 | Olivia Harris | 1992-11-10     | 789 East Dr       | 0106667778   | Asthma         | Ventolin       |
+| james_lopez | jamesl456    | James Lopez   | 1979-08-23     | 321 West St       | 0102223334   | Diabetes       | Insulin        |
 
+</details>
+<details>
+  <summary> Guardian Table</summary>
+  | guard_no | ward_no | guard_relationship | guard_allowed |
+|----------|---------|--------------------|---------------|
+| 1        | 2       | Parent             | completed     |
+| 2        | 3       | Sibling            | completed     |
+| 1        | 4       | Child              | waiting       |
+| 4        | 5       | Parent             | completed     |
+| 6        | 7       | Spouse             | completed     |
+| 8        | 9       | Child              | waiting       |
+
+</details>
+<details>
+  <summary>Hospital Table</summary>
+  | hosp_id    | hosp_pwd    | hosp_name                 | hosp_phone |
+|------------|-------------|---------------------------|------------|
+| bestcare   | hosp1234    | Best Care Medical Center  | 021234567  |
+| cityhealth | citypass    | City Health Clinic        | 023456789  |
+| medicore   | secure1234  | MediCore Facility         | 024567890  |
+| greenmed   | green2023   | Green Medical Services    | 027891011  |
+| bluestar   | blue1234    | Blue Star Hospital        | 028765432  |
+</details>
 ## 👫 CO-OP
 ### WBS
 <details>
@@ -173,6 +210,7 @@ WHERE doctor_no=1;
     
   </summary>
   https://docs.google.com/spreadsheets/d/1hpVTMaa_74JfIQDtYtLpZEWX7O0yWWgvPrazUaNrMxc/edit#gid=1835326347
+  
   ![wbs](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/6ed5b4dd-06af-4889-93bd-82d9ee2614ea)
 
 </details>
