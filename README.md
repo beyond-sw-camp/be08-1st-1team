@@ -34,7 +34,7 @@
 ----------
 
 ## 🐧 프로젝트 주요 기능
-
+[요구사항 명세](https://docs.google.com/spreadsheets/d/1-901JV0erwZaMJBfVRsbWhYAnOgtMyhiOb7uzIzZk0g/edit#gid=0)
 
 #### 병원 찾기
 - 영업 시간, 점심 시간 기반 지금 갈 수 있는 병원 탐색
@@ -49,29 +49,8 @@
 #### 보호자 대리 예약
 - 보호자-피보호자 시스템으로 피보호자의 진료 대리 예약 가능
 
-<details>
-	<summary>요구사항 명세서</summary>
-	
-![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/0f6c79db-b703-483c-aa09-5a4713f208fd)
-<br>	
-[요구사항 명세](https://docs.google.com/spreadsheets/d/1-901JV0erwZaMJBfVRsbWhYAnOgtMyhiOb7uzIzZk0g/edit#gid=0)
-</details>
-
-
 ## 💻 프로젝트 구현
 <!-- 구동 움짤 -->
-### WBS
-<details>
-  <summary>접기/펼치기
-    
-  </summary>
-  https://docs.google.com/spreadsheets/d/1hpVTMaa_74JfIQDtYtLpZEWX7O0yWWgvPrazUaNrMxc/edit#gid=1835326347
-<br>
-  
-  ![wbs](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/6ed5b4dd-06af-4889-93bd-82d9ee2614ea)
-
-</details>
-
 ### 주요 특징
 
 ### DB 모델링
@@ -95,334 +74,23 @@
 </details>
 
   
-### DDL
+### DDL 및 주요 쿼리
 
-<details>
-	<summary> DDL</summary>
-	<pre><code>
-<br>
-유저 (user) 테이블 생성
-CREATE TABLE `user` (
-	`no_user`	INT	NOT NULL,
-	`password_user`	VARCHAR	NOT NULL,
-	`name_user`	VARCHAR	NOT NULL,
-	`age_user`	INT	NOT NULL,
-	`address_user`	VARCHAR	NULL,
-	`call_user`	VARCHAR	NULL,
-	`enrolldate_user`	DATE	NULL,
-	`onactive_user`	BOOLEAN	NOT NULL	DEFAULT FALSE,
-	`underlying_user`	VARCHAR	NULL,
-	`medicine_user`	VARCHAR	NULL,
-	`id_user`	VARCHAR	NOT NULL
-);
-<br>
--- 병원 (hospital) 테이블 생성
-CREATE TABLE `hospital` (
-	`no_hospital`	INT	NOT NULL,
-	`password_hospital`	VARCHAR	NOT NULL,
-	`name_hospital`	VARCHAR	NOT NULL,
-	`call_hospital`	VARCHAR	NULL,
-	`room_hospital`	VARCHAR	NULL,
-	`id_hospital`	VARCHAR	NOT NULL
-);
-<br>
--- 예약 (appointment) 테이블 생성
-CREATE TABLE `appointment` (
-	`no_appointment`	INT	NOT NULL,
-	`date_appointment`	DATE	NOT NULL,
-	`time_appointment`	DATE	NOT NULL,
-	`status_appointment`	VARCHAR	NOT NULL,
-	`no_hospital`	INT	NOT NULL,
-	`no_user`	INT	NOT NULL
-);
-<br>
--- 진료기록(log_treatment) 테이블 생성
-CREATE TABLE `log_treatment` (
-	`no_care`	INT	NOT NULL,
-	`date_appointment`	DATE	NOT NULL,
-	`symptom_appointment`	VARCHAR	NOT NULL,
-	`diagnosis_appointment`	VARCHAR	NULL,
-	`treatment_appointment`	VARCHAR	NULL,
-	`id_doctor`	INT	NOT NULL,
-	`no_hospital`	INT	NOT NULL,
-	`no_user`	INT	NOT NULL
-);
-<br>
--- 의사 (doctor) 테이블 생성
-CREATE TABLE `doctor` (
-	`no_doctor`	INT	NOT NULL,
-	`no_hospital`	INT	NOT NULL
-);
-<br>
--- 근무시간 (worktime_doctor) 테이블 생성
-CREATE TABLE `worktime_doctor` (
-	`starttime_worktime`	DATE	NOT NULL,
-	`endtime_worktime`	DATE	NOT NULL,
-	`no_doctor`	INT	NOT NULL
-);
-<br>
---  보호자 (guardians) 테이블 생성
-CREATE TABLE `guardians` (
-	`no_user`	INT	NOT NULL,
-	`relationship_guardians`	VARCHAR	NULL,
-	`allowed_guardians`	TINYINT	NOT NULL	DEFAULT 0
-);
-<br>
--- 진료과 (spec) 테이블 생성
-CREATE TABLE `spec` (
-	`spec`	VARCHAR	NULL,
-	`no_doctor`	INT	NOT NULL,
-	`no_care`	INT	NOT NULL
-);
-<br>
--- 병원시설 (facilities_hospital) 테이블 생성
-CREATE TABLE `facilities_hospital` (
-	`facilities`	VARCHAR	NULL,
-	`no_hospital`	INT	NOT NULL
-);
-<br>
--- 병원장비 (equipment_hospital) 테이블 생성
-CREATE TABLE `equipment_hospital` (
-	`equipment`	VARCHAR	NULL,
-	`no_hospital`	INT	NOT NULL
-);
-<br>
--- 병원위치정보 (location_hospital) 테이블 생성
-CREATE TABLE `location_hospital` (
-	`address`	VARCHAR	NOT NULL,
-	`latitude`	VARCHAR	NOT NULL,
-	`longitude`	VARCHAR	NOT NULL,
-	`no_hospital`	INT	NOT NULL
-);
-<br>
--- 공지사항 (notice) 테이블 생성
-CREATE TABLE `notice` (
-	`no_hospital`	INT	NOT NULL,
-	`date_notice`	DATE	NOT NULL,
-	`body_notice`	VARCHAR	NOT NULL
-);
-<br>
-ALTER TABLE `user` ADD CONSTRAINT `PK_USER` PRIMARY KEY (
-	`no_user`
-);
-<br>
-ALTER TABLE `hospital` ADD CONSTRAINT `PK_HOSPITAL` PRIMARY KEY (
-	`no_hospital`
-);
-<br>
-ALTER TABLE `appointment` ADD CONSTRAINT `PK_APPOINTMENT` PRIMARY KEY (
-	`no_appointment`
-);
-<br>
-ALTER TABLE `log_treatment` ADD CONSTRAINT `PK_LOG_TREATMENT` PRIMARY KEY (
-	`no_care`
-);
-<br>
-ALTER TABLE `doctor` ADD CONSTRAINT `PK_DOCTOR` PRIMARY KEY (
-	`no_doctor`
-);
-<br>
-ALTER TABLE `guardians` ADD CONSTRAINT `PK_GUARDIANS` PRIMARY KEY (
-	`no_user`
-);
-<br>
-ALTER TABLE `guardians` ADD CONSTRAINT `FK_user_TO_guardians_1` FOREIGN KEY (
-	`no_user`
-)
-REFERENCES `user` (
-	`no_user`
-);</code></pre>
-</details>
-
-### 테스트 케이스 값값
-<details>
-  <summary>Tables</summary>
-
-<details>
-	<summary> User Table </summary>
-	  
-| user_id     | user_pwd     | user_name     | user_birthdate | user_addr         | user_phone   | user_disease   | user_medicine  |
-|-------------|--------------|---------------|----------------|-------------------|--------------|----------------|----------------|
-| john_doe    | password123  | John Doe      | 1985-02-15     | 1234 Broadway St  | 01012345678  | Asthma         | Ventolin       |
-| jane_smith  | password123  | Jane Smith    | 1990-08-25     | 2345 Maple Ave    | 01098765432  | Diabetes       | Metformin      |
-| susan_lee   | password789  | Susan Lee     | 1975-05-22     | 7890 Elm St       | 0105556677   | Hypertension   | Lisinopril     |
-| mike_brown  | mike1234     | Mike Brown    | 1988-11-16     | 4567 Pine St      | 0108765432   | None           | NULL           |
-| lisa_ray    | lisa9876     | Lisa Ray      | 1992-03-30     | 321 Oak St        | 0102345678   | Allergies      | Cetirizine     |
-| alex_gray   | alexpass     | Alex Gray     | 1983-09-12     | 1579 River Rd     | 0105647382   | None           | NULL           |
-| emma_white  | emma1234     | Emma White    | 1995-07-20     | 2020 Sunset Blvd  | 0104321567   | Eczema         | Hydrocortisone |
-| noah_wilson | noahpass     | Noah Wilson   | 1980-01-05     | 450 Mountain View | 0109876543   | Anxiety        | Zoloft         |
-| olivia_harris | oliviah123 | Olivia Harris | 1992-11-10     | 789 East Dr       | 0106667778   | Asthma         | Ventolin       |
-| james_lopez | jamesl456    | James Lopez   | 1979-08-23     | 321 West St       | 0102223334   | Diabetes       | Insulin        |
-	
-</details>
-	<details>
-		<summary> Guardian Table</summary>
-	  
-| guard_no | ward_no | guard_relationship | guard_allowed |
-|----------|---------|--------------------|---------------|
-| 1        | 2       | Parent             | completed     |
-| 2        | 3       | Sibling            | completed     |
-| 1        | 4       | Child              | waiting       |
-| 4        | 5       | Parent             | completed     |
-| 6        | 7       | Spouse             | completed     |
-| 8        | 9       | Child              | waiting       |
-	
-</details>
-	<details>
-		<summary>Hospital Table</summary>
-	  
-| hosp_id    | hosp_pwd    | hosp_name                 | hosp_phone |
-|------------|-------------|---------------------------|------------|
-| bestcare   | hosp1234    | Best Care Medical Center  | 021234567  |
-| cityhealth | citypass    | City Health Clinic        | 023456789  |
-| medicore   | secure1234  | MediCore Facility         | 024567890  |
-| greenmed   | green2023   | Green Medical Services    | 027891011  |
-| bluestar   | blue1234    | Blue Star Hospital        | 028765432  |
-</details>
-	
-<details>
-	<summary> Location Table </summary>
-	
-| loc_addr            | loc_lat | loc_long  | hosp_no |
-|---------------------|---------|-----------|---------|
-| 6789 Hospital Rd    | 37.7749 | -122.4194 | 1       |
-| 123 Health Blvd     | 40.7128 | -74.0060  | 2       |
-| 456 Clinic Rd       | 34.0522 | -118.2437 | 3       |
-| 500 Clinic Center Dr| 39.9042 | -75.1698  | 4       |
-| 1200 Health Park    | 33.6844 | -117.8265 | 5       |
-	
-</details>
-	
-<details>
-	<summary> Notice Table</summary>
-	
-| notice_datetime | notice_body                        | hosp_no |
-|-----------------|------------------------------------|---------|
-| NOW()           | Please wear a mask.                | 1       |
-| NOW()           | Flu shots available.               | 2       |
-| NOW()           | New COVID-19 guidelines updated.   | 3       |
-| NOW()           | Annual health checkup discount event.| 4    |
-| NOW()           | COVID-19 vaccination available.    | 5       |
-	
-</details>
-	
-<details>
-	<summary>Facility Table</summary>
-	
-| facility_name       | hosp_no |
-|---------------------|---------|
-| Emergency Room      | 1       |
-| Intensive Care Unit | 2       |
-| Pediatrics Wing     | 3       |
-| Maternity Ward      | 4       |
-| Oncology Center     | 5       |
-	
-	  
-</details>
-	
-<details>
-	<summary>Equipment Table</summary>
-	  
-| equipment_name | hosp_no |
-|----------------|---------|
-| MRI Scanner    | 1       |
-| Ultrasound     | 2       |
-| X-Ray Machine  | 3       |
-| CT Scanner     | 4       |
-| ECG Machine    | 5       |
-	
-</details>
-<details>
-	<summary>Department Table</summary>
-	
-| dept_id | dept_name   |
-|---------|-------------|
-| cardio  | Cardiology  |
-| gynae   | Gynecology  |
-| ortho   | Orthopedics |
-	
-</details>
-<details>
-	<summary>Doctor Table</summary>
-	
-| hosp_no | doctor_name       | doctor_gender |
-|---------|-------------------|---------------|
-| 1       | Dr. Alice Johnson | F             |
-| 2       | Dr. Emily White   | F             |
-| 3       | Dr. Robert Green  | M             |
-| 4       | Dr. Charlotte Johnson | F         |
-| 5       | Dr. Henry Martinez| M             |
-	
-</details>
-<details>
-	<summary>Doctor Departmentw Table</summary>
-	
-| doctor_no | dept_id | docdept_room |
-|-----------|---------|--------------|
-| 1         | cardio  | 101A         |
-| 2         | gynae   | 202B         |
-| 3         | ortho   | 303C         |
-| 4         | gynae   | 403D         |
-| 5         | ortho   | 505E         |
-	
-</details>
-<details>
-	<summary>Worktime Table</summary>  
-	
-| worktime_start       | worktime_end         | doctor_no |
-|----------------------|----------------------|-----------|
-| 2023-01-01 08:00:00  | 2023-01-01 16:00:00  | 1         |
-| 2023-01-02 09:00:00  | 2023-01-02 17:00:00  | 2         |
-| 2023-01-03 10:00:00  | 2023-01-03 18:00:00  | 3         |
-| 2023-01-04 08:00:00  | 2023-01-04 14:00:00  | 4         |
-| 2023-01-05 12:00:00  | 2023-01-05 18:00:00  | 5         |
-	
-</details>
-<details>
-	<summary>Appointment Table</summary>
-	
-| appt_date            | appt_symptom      | user_no | hosp_no | doctor_no |
-|----------------------|-------------------|---------|---------|-----------|
-| 2023-12-15 10:00:00  | Cough and fever   | 1       | 1       | 1         |
-| 2023-12-20 11:00:00  | Headache          | 2       | 2       | 2         |
-| 2023-12-21 12:00:00  | Broken leg        | 3       | 3       | 3         |
-| 2023-12-22 14:00:00  | Regular checkup   | 4       | 4       | 4         |
-| 2023-12-23 15:00:00  | Chemotherapy session | 5   | 5       | 5         |
-	
-</details>
-	<details>
-		<summary>Medical Record Table</summary>
-	
-| record_diagnosis | record_treatment    | appt_no |
-|------------------|---------------------|---------|
-| Flu              | Rest and medication | 1       |
-| Migraine         | Prescribed pain relief | 2     |
-| Leg fracture     | Surgery required    | 3       |
-| General checkup  | All clear           | 4       |
-| Cancer treatment | Chemotherapy        | 5       |
-	
-</details>
-<details>
-	<summary>Rejection Table</summary>
-	
-| rejection_result                  | appt_no |
-|-----------------------------------|---------|
-| Doctor unavailable on requested date | 1     |
-| Unavailable for requested time    | 2       |
-| Doctor on leave                   | 3       |
-</details>
-</details>
-
-## 주요쿼리
-<details>
+  <details>
+    <summary> time_interval</summary>
+  </details>
+  <details>
     <summary> time_interval</summary>
       <p align="center">
       <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/0910f3fc-4b46-4968-b307-1809f2039b99" alt="Description of first image" width="300"/>
       <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/ccaed4d3-bcc1-403a-aa5b-266084773362" alt="Description of second image" width="300"/>
     </p>
-	<pre><code>
-<br>		
-\-- 일주일간의 시간들 담을 테이블
+
+
+
+
+```sql
+-- 일주일간의 시간들 담을 테이블
 CREATE OR REPLACE TABLE time_interval (
     half_hour DATETIME,
     onactive ENUM('active', 'deactive'),
@@ -434,35 +102,35 @@ CREATE OR REPLACE TABLE time_interval (
 (오늘 이전은 삭제 오늘로부터 일주일 중 없는 시간이 있다면 생성,
 이미 테이블에 있는 시간에 대해서는 변동없음)
 '''
-<br>
+
 DELIMITER $$
-<br>
+
 CREATE OR REPLACE PROCEDURE loopwhile()
 BEGIN
     DECLARE start_datetime DATETIME;
     DECLARE end_datetime DATETIME;
     DECLARE current_datetime DATETIME;
-    
-\   -- 시작과 종료 시간 설정
+
+    -- 시작과 종료 시간 설정
     SET start_datetime = DATE(NOW());  -- 오늘 자정
     SET end_datetime = DATE_ADD(start_datetime, INTERVAL 7 DAY);  -- 일주일 후
-<br>
+
     -- 오늘 이전의 데이터 삭제
     DELETE FROM time_interval WHERE half_hour < start_datetime;
-<br>
+
     -- 의사별 일주일 간 30분 간격 데이터 삽입
     WHILE start_datetime < end_datetime DO
-	INSERT INTO time_interval (half_hour, onactive, doctor_no)
-	SELECT start_datetime, 'deactive', doctor_no
-	FROM doctor
-	WHERE NOT EXISTS (
-	    SELECT 1 FROM time_interval
-	    WHERE half_hour = start_datetime AND doctor_no = doctor.doctor_no
-	);
-<br>
-	-- 다음 30분 간격 설정
-	SET start_datetime = DATE_ADD(start_datetime, INTERVAL 30 MINUTE);
-    END WHILE;-->
+        INSERT INTO time_interval (half_hour, onactive, doctor_no)
+        SELECT start_datetime, 'deactive', doctor_no
+        FROM doctor
+        WHERE NOT EXISTS (
+            SELECT 1 FROM time_interval
+            WHERE half_hour = start_datetime AND doctor_no = doctor.doctor_no
+        );
+
+        -- 다음 30분 간격 설정
+        SET start_datetime = DATE_ADD(start_datetime, INTERVAL 30 MINUTE);
+    END WHILE;
 END$$
 
 DELIMITER ;
@@ -508,19 +176,439 @@ INSERT INTO worktime (doctor_no, start_worktime, end_worktime) VALUES
 -- time_interval 테이블 업데이트 확인
 SELECT *
 FROM time_interval
-WHERE doctor_no=1;</code></pre>
+WHERE doctor_no=1;
+```
+  </details>
+  
+  #### 병원 검색 
+  <details>
+  <summary>필터 기반 병원 검색</summary>
+  <div>
+   
+  * 수술실, MRI가 있는 외과 검색
+  ```sql
+
+  SELECT h.hosp_name AS "병원명",
+        w.worktime_start AS "진료 시작 시간",
+        w.worktime_end AS "진료 종료 시간",
+        dept.dept_name AS "진료 과목"
+  FROM hospital h
+  JOIN facility f ON h.hosp_no = f.hosp_no
+  JOIN equipment e ON h.hosp_no = e.hosp_no
+  JOIN doctor doc ON h.hosp_no = doc.hosp_no
+  JOIN doctor_dept dd ON doc.doctor_no = dd.doctor_no
+  JOIN department dept ON dd.dept_id = dept.dept_id
+  JOIN location l ON h.hosp_no = l.hosp_no
+  JOIN worktime w ON doc.doctor_no = w.doctor_no
+  WHERE f.facility_name = "수술실" AND e.equipment_name = "MRI" AND dept.dept_name = "외과";
+  ```
+  </div>
   </details>
 
-### 테스트
+  #### 병원 예약 
+  <details>
+  <summary>환자 본인 진료 예약</summary>
+  <div>
+   
+  * 해당 예약 시간에 선택한 담당의가 active이면 예약 가능 
 
+  ```sql
+
+  INSERT INTO appointment (appt_date, appt_symptom, user_no, hosp_no, doctor_no)
+  SELECT '2024-06-02 08:30:00', '복통', 6, 1, 1
+  WHERE EXISTS (
+    SELECT 1 
+    FROM time_interval 
+    WHERE half_hour = '2024-06-02 08:30:00'
+      AND doctor_no = 1
+      AND onactive = 'active'
+  ) AND EXISTS (SELECT 1 FROM doctor WHERE hosp_no=1 AND doctor_no=1);
+  ```
+  </div>
+  </details>
+  <details>
+  <summary>보호자가 피보호자의 진료 예약</summary>
+  <div>
+   
+  * 해당 예약 시간에 선택한 담당의가 active이고, 보호자 관계가 성립하면 예약 가능 
+
+  ```sql
+
+  DELIMITER //
+
+  CREATE PROCEDURE AddAppointmentByGuardian (
+      IN in_guard_no INT,
+      IN in_ward_no INT,
+      IN appt_date DATETIME,
+      IN appt_symptom VARCHAR(50),
+      IN hosp_no INT,
+      IN doctor_no INT,
+      IN guard_ID VARCHAR(20),
+      IN ward_ID VARCHAR(20)
+  )
+  BEGIN
+      DECLARE guard_exist INT;
+      DECLARE doctor_time INT;
+
+      -- 보호자와 피보호자 관계 확인
+      SELECT COUNT(*) INTO guard_exist
+      FROM `guardian`
+      WHERE `guard_no` = in_guard_no
+        AND `ward_no` = in_ward_no;
+
+      -- 의사의 활성화된 시간 확인
+      SELECT COUNT(*) INTO doctor_time
+      FROM time_interval 
+      WHERE half_hour = appt_date
+        AND doctor_no = doctor_no
+        AND onactive = 'active';
+
+      IF guard_exist > 0 AND doctor_time > 0 THEN
+          -- 피보호자를 대신하여 예약 신청
+          INSERT INTO `appointment` 
+          (appt_date, appt_status, appt_symptom, user_no, hosp_no, doctor_no, guard_ID, ward_ID)
+          VALUES
+          (appt_date, 'waiting', appt_symptom, in_ward_no, hosp_no, doctor_no, guard_ID, ward_ID);
+      ELSEIF doctor_time = 0 THEN
+          SIGNAL SQLSTATE '45000'
+          SET MESSAGE_TEXT = 'Deactive time';
+      ELSEIF guard_exist = 0 THEN 
+          SIGNAL SQLSTATE '45000'
+          SET MESSAGE_TEXT = 'Invalid guardian or ward relationship.';
+      END IF;
+  END //
+
+  DELIMITER ;
+
+  CALL AddAppointmentByGuardian(6, 1, '2024-06-02 08:30:00', '고혈압 증상', 1, 1, 'user06', 'user01');
+  ```
+  </div>
+  </details>
+  <details>
+  <summary>병원이 진료 예약 확인</summary>
+  <div>
+   
+  * 병원 ID를 통해 예약 내역 확인 
+  ```sql
+
+  SELECT h.hosp_name AS "병원명",
+	    a.appt_date AS "예약일시",
+	    u.user_name AS "환자명",
+	    a.appt_symptom AS "증상",
+	    u.user_phone AS "환자 전화번호",
+	    u.user_disease AS "기저질환",
+	    a.appt_status AS "예약상태" 
+  FROM hospital h
+  JOIN appointment a ON h.hosp_no = a.hosp_no
+  JOIN user u ON u.user_no = a.user_no
+  WHERE h.hosp_id = 'hosp03';
+  ```
+  </div>
+  </details>
+
+  #### 예약 취소 
+  <details>
+  <summary>환자 본인 진료 예약 취소</summary>
+  <div>
+   
+  * 예약 번호, 회원 아이디, 비밀번호가 일치하면 예약 취소 허용
+  ```sql
+
+  DELETE FROM `appointment`
+  WHERE `appt_no` = 7
+    AND `appt_status` = 'waiting' OR `appt_status` = 'accepted'
+    AND `user_no` = (SELECT `user_no` 
+                    FROM `user` 
+                    WHERE `user_name` = '박민형' 
+                      AND `user_id` = 'user03' 
+                      AND `user_pwd` = 'password3');
+  SELECT * FROM appointment;
+  ```
+  </div>
+  </details>
+  <details>
+  <summary>보호자가 피보호자의 진료 예약 취소</summary>
+  <div>
+  
+  * 보호자 아이디, 보호자 비밀번호를 입력받고 해당 예약 내역에 대해 보호자 관계가 성립하면 예약 취소 허용
+  ```sql
+
+  DELIMITER //
+
+  CREATE PROCEDURE CancelAppointmentByGuardian (
+      IN guard_no INT,
+      IN guard_id VARCHAR(50),
+      IN guard_password VARCHAR(50),
+      IN ward_no INT,
+      IN appt_no INT
+  )
+  BEGIN
+      DECLARE guard_exist INT;
+      DECLARE appointment_exist INT;
+
+      -- 보호자 자격 및 ID와 비밀번호 확인
+      SELECT COUNT(*) INTO guard_exist
+      FROM `guardian` g
+      JOIN `user` u ON g.guard_no = u.user_no
+      WHERE g.guard_no = guard_no
+        AND u.user_id = guard_id
+        AND u.user_pwd = guard_password
+        AND g.ward_no = ward_no
+        AND g.guard_allowed = 'completed';
+
+      -- 예약이 존재하는지 확인
+      SELECT COUNT(*) INTO appointment_exist
+      FROM `appointment`
+      WHERE appt_no = appt_no
+        AND user_no = ward_no;
+        
+      IF guard_exist > 0 AND appointment_exist > 0 THEN
+          -- appointment 테이블에서 해당 예약에 대한 레코드 삭제
+          DELETE FROM `appointment`
+          WHERE appt_no = appt_no
+            AND user_no = ward_no
+        AND appt_status = 'waiting';
+      ELSE
+          SIGNAL SQLSTATE '45000'
+          SET MESSAGE_TEXT = 'Invalid guardian credentials or relationship, or appointment does not exist.';
+      END IF;
+  END //
+
+  DELIMITER ;
+
+  -- CALL 예시
+  CALL CancelAppointmentByGuardian(6, 'user06', 'password6', 1, 10);
+  ```
+  </div>
+  </details>
+<details>
+  <summary>병원이 진료 예약 거절</summary>
+  <div>
+  
+  * appointment 테이블에서 appt_status가 rejected로 변경되면 rejection 테이블에 해당 거절 내역 추가 
+  ```sql
+
+  DELIMITER $$
+
+  CREATE TRIGGER after_appointment_update
+  AFTER UPDATE ON appointment
+  FOR EACH ROW
+  BEGIN
+      IF NEW.appt_status = 'rejected' AND OLD.appt_status = 'waiting' THEN
+          INSERT INTO rejection (rejection_result, appt_no)
+          VALUES ('Reservation cancelled by hospital', NEW.appt_no);
+      END IF;
+  END $$
+
+  DELIMITER ;
+
+  -- update 예시 
+  UPDATE appointment 
+  SET appt_status = "rejected"
+  WHERE appt_status = "waiting" AND hosp_no = 1 AND appt_no = 8;
+  ```
+  </div>
+  </details>
+
+  
+
+### 테스트 케이스
+<details>
+  <summary>Tables</summary>
+
+<details>
+  <summary> User Table </summary>
+  
+  | user_id     | user_pwd     | user_name     | user_birthdate | user_addr         | user_phone   | user_disease   | user_medicine  |
+|-------------|--------------|---------------|----------------|-------------------|--------------|----------------|----------------|
+| john_doe    | password123  | John Doe      | 1985-02-15     | 1234 Broadway St  | 01012345678  | Asthma         | Ventolin       |
+| jane_smith  | password123  | Jane Smith    | 1990-08-25     | 2345 Maple Ave    | 01098765432  | Diabetes       | Metformin      |
+| susan_lee   | password789  | Susan Lee     | 1975-05-22     | 7890 Elm St       | 0105556677   | Hypertension   | Lisinopril     |
+| mike_brown  | mike1234     | Mike Brown    | 1988-11-16     | 4567 Pine St      | 0108765432   | None           | NULL           |
+| lisa_ray    | lisa9876     | Lisa Ray      | 1992-03-30     | 321 Oak St        | 0102345678   | Allergies      | Cetirizine     |
+| alex_gray   | alexpass     | Alex Gray     | 1983-09-12     | 1579 River Rd     | 0105647382   | None           | NULL           |
+| emma_white  | emma1234     | Emma White    | 1995-07-20     | 2020 Sunset Blvd  | 0104321567   | Eczema         | Hydrocortisone |
+| noah_wilson | noahpass     | Noah Wilson   | 1980-01-05     | 450 Mountain View | 0109876543   | Anxiety        | Zoloft         |
+| olivia_harris | oliviah123 | Olivia Harris | 1992-11-10     | 789 East Dr       | 0106667778   | Asthma         | Ventolin       |
+| james_lopez | jamesl456    | James Lopez   | 1979-08-23     | 321 West St       | 0102223334   | Diabetes       | Insulin        |
+
+</details>
+<details>
+  <summary> Guardian Table</summary>
+  
+  | guard_no | ward_no | guard_relationship | guard_allowed |
+|----------|---------|--------------------|---------------|
+| 1        | 2       | Parent             | completed     |
+| 2        | 3       | Sibling            | completed     |
+| 1        | 4       | Child              | waiting       |
+| 4        | 5       | Parent             | completed     |
+| 6        | 7       | Spouse             | completed     |
+| 8        | 9       | Child              | waiting       |
+
+</details>
+<details>
+  <summary>Hospital Table</summary>
+  
+  | hosp_id    | hosp_pwd    | hosp_name                 | hosp_phone |
+|------------|-------------|---------------------------|------------|
+| bestcare   | hosp1234    | Best Care Medical Center  | 021234567  |
+| cityhealth | citypass    | City Health Clinic        | 023456789  |
+| medicore   | secure1234  | MediCore Facility         | 024567890  |
+| greenmed   | green2023   | Green Medical Services    | 027891011  |
+| bluestar   | blue1234    | Blue Star Hospital        | 028765432  |
+</details>
+
+<details>
+  <summary> Location Table </summary>
+
+  | loc_addr            | loc_lat | loc_long  | hosp_no |
+|---------------------|---------|-----------|---------|
+| 6789 Hospital Rd    | 37.7749 | -122.4194 | 1       |
+| 123 Health Blvd     | 40.7128 | -74.0060  | 2       |
+| 456 Clinic Rd       | 34.0522 | -118.2437 | 3       |
+| 500 Clinic Center Dr| 39.9042 | -75.1698  | 4       |
+| 1200 Health Park    | 33.6844 | -117.8265 | 5       |
+
+</details>
+
+<details>
+  <summary> Notice Table</summary>
+
+  | notice_datetime | notice_body                        | hosp_no |
+|-----------------|------------------------------------|---------|
+| NOW()           | Please wear a mask.                | 1       |
+| NOW()           | Flu shots available.               | 2       |
+| NOW()           | New COVID-19 guidelines updated.   | 3       |
+| NOW()           | Annual health checkup discount event.| 4    |
+| NOW()           | COVID-19 vaccination available.    | 5       |
+
+</details>
+
+<details>
+  <summary>Facility Table</summary>
+
+  | facility_name       | hosp_no |
+|---------------------|---------|
+| Emergency Room      | 1       |
+| Intensive Care Unit | 2       |
+| Pediatrics Wing     | 3       |
+| Maternity Ward      | 4       |
+| Oncology Center     | 5       |
+
+  
+</details>
+
+<details>
+  <summary>Equipment Table</summary>
+  
+  | equipment_name | hosp_no |
+|----------------|---------|
+| MRI Scanner    | 1       |
+| Ultrasound     | 2       |
+| X-Ray Machine  | 3       |
+| CT Scanner     | 4       |
+| ECG Machine    | 5       |
+
+</details>
+<details>
+  <summary>Department Table</summary>
+
+  | dept_id | dept_name   |
+|---------|-------------|
+| cardio  | Cardiology  |
+| gynae   | Gynecology  |
+| ortho   | Orthopedics |
+
+</details>
+<details>
+  <summary>Doctor Table</summary>
+
+  | hosp_no | doctor_name       | doctor_gender |
+|---------|-------------------|---------------|
+| 1       | Dr. Alice Johnson | F             |
+| 2       | Dr. Emily White   | F             |
+| 3       | Dr. Robert Green  | M             |
+| 4       | Dr. Charlotte Johnson | F         |
+| 5       | Dr. Henry Martinez| M             |
+
+</details>
+<details>
+  <summary>Doctor Departmentw Table</summary>
+
+  | doctor_no | dept_id | docdept_room |
+|-----------|---------|--------------|
+| 1         | cardio  | 101A         |
+| 2         | gynae   | 202B         |
+| 3         | ortho   | 303C         |
+| 4         | gynae   | 403D         |
+| 5         | ortho   | 505E         |
+
+</details>
+<details>
+  <summary>Worktime Table</summary>  
+
+  | worktime_start       | worktime_end         | doctor_no |
+|----------------------|----------------------|-----------|
+| 2023-01-01 08:00:00  | 2023-01-01 16:00:00  | 1         |
+| 2023-01-02 09:00:00  | 2023-01-02 17:00:00  | 2         |
+| 2023-01-03 10:00:00  | 2023-01-03 18:00:00  | 3         |
+| 2023-01-04 08:00:00  | 2023-01-04 14:00:00  | 4         |
+| 2023-01-05 12:00:00  | 2023-01-05 18:00:00  | 5         |
+
+</details>
+<details>
+  <summary>Appointment Table</summary>
+
+  | appt_date            | appt_symptom      | user_no | hosp_no | doctor_no |
+|----------------------|-------------------|---------|---------|-----------|
+| 2023-12-15 10:00:00  | Cough and fever   | 1       | 1       | 1         |
+| 2023-12-20 11:00:00  | Headache          | 2       | 2       | 2         |
+| 2023-12-21 12:00:00  | Broken leg        | 3       | 3       | 3         |
+| 2023-12-22 14:00:00  | Regular checkup   | 4       | 4       | 4         |
+| 2023-12-23 15:00:00  | Chemotherapy session | 5   | 5       | 5         |
+
+</details>
+<details>
+  <summary>Medical Record Table</summary>
+
+  | record_diagnosis | record_treatment    | appt_no |
+|------------------|---------------------|---------|
+| Flu              | Rest and medication | 1       |
+| Migraine         | Prescribed pain relief | 2     |
+| Leg fracture     | Surgery required    | 3       |
+| General checkup  | All clear           | 4       |
+| Cancer treatment | Chemotherapy        | 5       |
+
+</details>
+<details>
+  <summary>Rejection Table</summary>
+
+  | rejection_result                  | appt_no |
+|-----------------------------------|---------|
+| Doctor unavailable on requested date | 1     |
+| Unavailable for requested time    | 2       |
+| Doctor on leave                   | 3       |
+
+</details>
+</details>
 
 ## 👫 CO-OP
 
+### WBS
+<details>
+  <summary>접기/펼치기
+    
+  </summary>
+  https://docs.google.com/spreadsheets/d/1hpVTMaa_74JfIQDtYtLpZEWX7O0yWWgvPrazUaNrMxc/edit#gid=1835326347
+  
+  ![wbs](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/6ed5b4dd-06af-4889-93bd-82d9ee2614ea)
+
+</details>
 
 ### 회고
 |팀원|회고록|
 |-----|-----|
-|김도하|다양한 사람들과 처음만나 프로젝트를 진행하게 되는 것은 처음이었는데 모두가 노력하고 소통하여 만족스러운 결과가 나와서 값진 경험이 되었고, 앞으로 진행할 프로젝트들이 더욱 기대가 됩니다.    |
+|김도하|    |
 |김은경|    |
 |이지정|    |
 |황지우|    |
