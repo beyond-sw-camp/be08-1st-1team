@@ -52,11 +52,11 @@
 ## 💻 프로젝트 구현
 <!-- 구동 움짤 -->
 ### 주요 특징
-<details>
+
 ### DB 모델링
-  <summary> 접기/펼치기 </summary>
-</details>
-<details>
+
+
+  
 ### DDL 및 주요 쿼리
   <summary> 접기/펼치기 </summary>
   <details>
@@ -162,7 +162,6 @@ FROM time_interval
 WHERE doctor_no=1;
 ```
   </details>
-</details>
 
 ### 테스트 케이스
 <details>
