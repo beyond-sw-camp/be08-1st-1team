@@ -80,7 +80,7 @@
 	<summary> DDL</summary>
 	<pre><code>
 		
-<!-- 유저 (user) 테이블 생성
+유저 (user) 테이블 생성
 CREATE TABLE `user` (
 	`no_user`	INT	NOT NULL,
 	`password_user`	VARCHAR	NOT NULL,
@@ -210,7 +210,7 @@ ALTER TABLE `guardians` ADD CONSTRAINT `FK_user_TO_guardians_1` FOREIGN KEY (
 )
 REFERENCES `user` (
 	`no_user`
-);--></code></pre>
+);</code></pre>
 </details>
 <details>
     <summary> time_interval</summary>
@@ -219,13 +219,14 @@ REFERENCES `user` (
       <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/ccaed4d3-bcc1-403a-aa5b-266084773362" alt="Description of second image" width="300"/>
     </p>
 	<pre><code>
-<!-- 일주일간의 시간들 담을 테이블
+		
+\-- 일주일간의 시간들 담을 테이블
 CREATE OR REPLACE TABLE time_interval (
     half_hour DATETIME,
     onactive ENUM('active', 'deactive'),
     doctor_no INT,
     FOREIGN KEY (doctor_no) REFERENCES doctor(doctor_no)
-);-->
+);
 '''
 금일부터 일주일간의 시간들 생성 프로시저
 (오늘 이전은 삭제 오늘로부터 일주일 중 없는 시간이 있다면 생성,
@@ -240,13 +241,13 @@ BEGIN
     DECLARE end_datetime DATETIME;
     DECLARE current_datetime DATETIME;
     
-    <!-- 시작과 종료 시간 설정
+\   -- 시작과 종료 시간 설정
     SET start_datetime = DATE(NOW());  -- 오늘 자정
     SET end_datetime = DATE_ADD(start_datetime, INTERVAL 7 DAY);  -- 일주일 후
-
+\
     -- 오늘 이전의 데이터 삭제
     DELETE FROM time_interval WHERE half_hour < start_datetime;
-
+\
     -- 의사별 일주일 간 30분 간격 데이터 삽입
     WHILE start_datetime < end_datetime DO
 	INSERT INTO time_interval (half_hour, onactive, doctor_no)
@@ -257,7 +258,7 @@ BEGIN
 	    WHERE half_hour = start_datetime AND doctor_no = doctor.doctor_no
 	);
 
-	-- 다음 30분 간격 설정
+\	-- 다음 30분 간격 설정
 	SET start_datetime = DATE_ADD(start_datetime, INTERVAL 30 MINUTE);
     END WHILE;-->
 END$$
@@ -467,24 +468,24 @@ WHERE doctor_no=1;</code></pre>
 	<details>
 		<summary>Medical Record Table</summary>
 	
-			| record_diagnosis | record_treatment    | appt_no |
-			|------------------|---------------------|---------|
-			| Flu              | Rest and medication | 1       |
-			| Migraine         | Prescribed pain relief | 2     |
-			| Leg fracture     | Surgery required    | 3       |
-			| General checkup  | All clear           | 4       |
-			| Cancer treatment | Chemotherapy        | 5       |
+| record_diagnosis | record_treatment    | appt_no |
+|------------------|---------------------|---------|
+| Flu              | Rest and medication | 1       |
+| Migraine         | Prescribed pain relief | 2     |
+| Leg fracture     | Surgery required    | 3       |
+| General checkup  | All clear           | 4       |
+| Cancer treatment | Chemotherapy        | 5       |
 	
-	</details>
-	<details>
-		<summary>Rejection Table</summary>
+</details>
+<details>
+	<summary>Rejection Table</summary>
 	
-			| rejection_result                  | appt_no |
-			|-----------------------------------|---------|
-			| Doctor unavailable on requested date | 1     |
-			| Unavailable for requested time    | 2       |
-			| Doctor on leave                   | 3       |
-	</details>
+| rejection_result                  | appt_no |
+|-----------------------------------|---------|
+| Doctor unavailable on requested date | 1     |
+| Unavailable for requested time    | 2       |
+| Doctor on leave                   | 3       |
+</details>
 </details>
 
 
