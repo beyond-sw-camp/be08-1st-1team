@@ -77,7 +77,142 @@
 ### DDL 및 주요 쿼리
 
   <details>
-    <summary> time_interval</summary>
+    <summary> DDL</summary>
+	  <pre><code>
+		  -- 유저 (user) 테이블 생성
+CREATE TABLE `user` (
+	`no_user`	INT	NOT NULL,
+	`password_user`	VARCHAR	NOT NULL,
+	`name_user`	VARCHAR	NOT NULL,
+	`age_user`	INT	NOT NULL,
+	`address_user`	VARCHAR	NULL,
+	`call_user`	VARCHAR	NULL,
+	`enrolldate_user`	DATE	NULL,
+	`onactive_user`	BOOLEAN	NOT NULL	DEFAULT FALSE,
+	`underlying_user`	VARCHAR	NULL,
+	`medicine_user`	VARCHAR	NULL,
+	`id_user`	VARCHAR	NOT NULL
+);
+
+-- 병원 (hospital) 테이블 생성
+CREATE TABLE `hospital` (
+	`no_hospital`	INT	NOT NULL,
+	`password_hospital`	VARCHAR	NOT NULL,
+	`name_hospital`	VARCHAR	NOT NULL,
+	`call_hospital`	VARCHAR	NULL,
+	`room_hospital`	VARCHAR	NULL,
+	`id_hospital`	VARCHAR	NOT NULL
+);
+
+-- 예약 (appointment) 테이블 생성
+CREATE TABLE `appointment` (
+	`no_appointment`	INT	NOT NULL,
+	`date_appointment`	DATE	NOT NULL,
+	`time_appointment`	DATE	NOT NULL,
+	`status_appointment`	VARCHAR	NOT NULL,
+	`no_hospital`	INT	NOT NULL,
+	`no_user`	INT	NOT NULL
+);
+
+-- 진료기록(log_treatment) 테이블 생성
+CREATE TABLE `log_treatment` (
+	`no_care`	INT	NOT NULL,
+	`date_appointment`	DATE	NOT NULL,
+	`symptom_appointment`	VARCHAR	NOT NULL,
+	`diagnosis_appointment`	VARCHAR	NULL,
+	`treatment_appointment`	VARCHAR	NULL,
+	`id_doctor`	INT	NOT NULL,
+	`no_hospital`	INT	NOT NULL,
+	`no_user`	INT	NOT NULL
+);
+
+-- 의사 (doctor) 테이블 생성
+CREATE TABLE `doctor` (
+	`no_doctor`	INT	NOT NULL,
+	`no_hospital`	INT	NOT NULL
+);
+
+-- 근무시간 (worktime_doctor) 테이블 생성
+CREATE TABLE `worktime_doctor` (
+	`starttime_worktime`	DATE	NOT NULL,
+	`endtime_worktime`	DATE	NOT NULL,
+	`no_doctor`	INT	NOT NULL
+);
+
+--  보호자 (guardians) 테이블 생성
+CREATE TABLE `guardians` (
+	`no_user`	INT	NOT NULL,
+	`relationship_guardians`	VARCHAR	NULL,
+	`allowed_guardians`	TINYINT	NOT NULL	DEFAULT 0
+);
+
+-- 진료과 (spec) 테이블 생성
+CREATE TABLE `spec` (
+	`spec`	VARCHAR	NULL,
+	`no_doctor`	INT	NOT NULL,
+	`no_care`	INT	NOT NULL
+);
+
+-- 병원시설 (facilities_hospital) 테이블 생성
+CREATE TABLE `facilities_hospital` (
+	`facilities`	VARCHAR	NULL,
+	`no_hospital`	INT	NOT NULL
+);
+
+-- 병원장비 (equipment_hospital) 테이블 생성
+CREATE TABLE `equipment_hospital` (
+	`equipment`	VARCHAR	NULL,
+	`no_hospital`	INT	NOT NULL
+);
+
+-- 병원위치정보 (location_hospital) 테이블 생성
+CREATE TABLE `location_hospital` (
+	`address`	VARCHAR	NOT NULL,
+	`latitude`	VARCHAR	NOT NULL,
+	`longitude`	VARCHAR	NOT NULL,
+	`no_hospital`	INT	NOT NULL
+);
+
+-- 공지사항 (notice) 테이블 생성
+CREATE TABLE `notice` (
+	`no_hospital`	INT	NOT NULL,
+	`date_notice`	DATE	NOT NULL,
+	`body_notice`	VARCHAR	NOT NULL
+);
+
+ALTER TABLE `user` ADD CONSTRAINT `PK_USER` PRIMARY KEY (
+	`no_user`
+);
+
+ALTER TABLE `hospital` ADD CONSTRAINT `PK_HOSPITAL` PRIMARY KEY (
+	`no_hospital`
+);
+
+ALTER TABLE `appointment` ADD CONSTRAINT `PK_APPOINTMENT` PRIMARY KEY (
+	`no_appointment`
+);
+
+ALTER TABLE `log_treatment` ADD CONSTRAINT `PK_LOG_TREATMENT` PRIMARY KEY (
+	`no_care`
+);
+
+ALTER TABLE `doctor` ADD CONSTRAINT `PK_DOCTOR` PRIMARY KEY (
+	`no_doctor`
+);
+
+ALTER TABLE `guardians` ADD CONSTRAINT `PK_GUARDIANS` PRIMARY KEY (
+	`no_user`
+);
+
+ALTER TABLE `guardians` ADD CONSTRAINT `FK_user_TO_guardians_1` FOREIGN KEY (
+	`no_user`
+)
+REFERENCES `user` (
+	`no_user`
+);
+
+
+	  </code></pre>
   </details>
   <details>
     <summary> time_interval</summary>
@@ -359,40 +494,7 @@ WHERE doctor_no=1;
 
 </details>
 </details>
-<details>
-  <summary>PK,FK</summary>
 
-<code><pre>ALTER TABLE `user` ADD CONSTRAINT `PK_USER` PRIMARY KEY (
-	`no_user`
-);
-
-ALTER TABLE `hospital` ADD CONSTRAINT `PK_HOSPITAL` PRIMARY KEY (
-	`no_hospital`
-);
-
-ALTER TABLE `appointment` ADD CONSTRAINT `PK_APPOINTMENT` PRIMARY KEY (
-	`no_appointment`
-);
-
-ALTER TABLE `log_treatment` ADD CONSTRAINT `PK_LOG_TREATMENT` PRIMARY KEY (
-	`no_care`
-);
-
-ALTER TABLE `doctor` ADD CONSTRAINT `PK_DOCTOR` PRIMARY KEY (
-	`no_doctor`
-);
-
-ALTER TABLE `guardians` ADD CONSTRAINT `PK_GUARDIANS` PRIMARY KEY (
-	`no_user`
-);
-
-ALTER TABLE `guardians` ADD CONSTRAINT `FK_user_TO_guardians_1` FOREIGN KEY (
-	`no_user`
-)
-REFERENCES `user` (
-	`no_user`
-);</code><pre>
-</details>
 
 ## 👫 CO-OP
 
