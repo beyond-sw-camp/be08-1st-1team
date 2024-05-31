@@ -214,17 +214,14 @@ REFERENCES `user` (
 
 	  </code></pre>
   </details>
+  
   <details>
     <summary> time_interval</summary>
       <p align="center">
       <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/0910f3fc-4b46-4968-b307-1809f2039b99" alt="Description of first image" width="300"/>
       <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/ccaed4d3-bcc1-403a-aa5b-266084773362" alt="Description of second image" width="300"/>
     </p>
-
-
-
-
-```
+<pre><code>
 -- 일주일간의 시간들 담을 테이블
 CREATE OR REPLACE TABLE time_interval (
     half_hour DATETIME,
@@ -312,7 +309,8 @@ INSERT INTO worktime (doctor_no, start_worktime, end_worktime) VALUES
 SELECT *
 FROM time_interval
 WHERE doctor_no=1;
-```
+</code></pre>
+
   </details>
 
 ### 테스트 케이스
