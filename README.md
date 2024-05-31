@@ -198,7 +198,55 @@ FROM time_interval
 WHERE doctor_no=1;
 ```
   </details>
+
+  #### 회원
+  <details>
+  <summary>회원 가입</summary>
+  <div>
+
+  ```sql
+  INSERT INTO user(user_id, user_pwd, user_name, user_birthdate, user_addr, user_phone)
+  VALUES('user11', 'password11', '이지정', '1999-04-09', '김포한강1로9 901-1002', '01068800175');
+  ```
+  </div>
+  </details>
+  <details>
+  <summary>회원 탈퇴</summary>
+  <div>
+
+  ```sql
+  UPDATE user
+  SET user_secession = 'deactivate',
+      secession_date = NOW()
+  WHERE user_no = 11;
+  ```
+  </div>
+  </details>
   
+  #### 병원 
+  <details>
+  <summary>병원 가입</summary>
+  <div>
+
+  ```sql
+  INSERT INTO hospital(hosp_id, hosp_pwd, hosp_name, hosp_phone)
+  VALUES('hosp11', 'password11', '바른 병원', '01011223345');
+  ```
+  </div>
+  </details>
+  <details>
+  <summary>병원 탈퇴</summary>
+  <div>
+
+  ```sql
+  UPDATE hospital
+  SET hosp_secession = 'deactivate',
+      secession_date = NOW()
+  WHERE hosp_no = 11;
+  ```
+  </div>
+  </details>
+
   #### 병원 검색 
   <details>
   <summary>필터 기반 병원 검색</summary>
@@ -468,7 +516,6 @@ WHERE doctor_no=1;
                         where u.user_id='user06'    -- 보호자 id
                               and user_pwd='password6' -- 보호자 pwd
                               and g.guard_allowed='completed') ; -- 예약 상태
-
   ```
   </div>
   </details>
@@ -507,14 +554,13 @@ WHERE doctor_no=1;
   call change_appointment_status(1,'accepted',NULL);
 
   call change_appointment_status(1,'rejected','담당의사가 개인사정으로 오늘 휴진합니다.');
-
   ```
   </div>
   </details>
 
-#### 진료기록 확인 
+#### 진료기록
   <details>
-  <summary>진료가 완료된 진료 기록 확인</summary>
+  <summary>회원이 진료 기록 확인</summary>
   <div>
    
   * 회원 아이디, 비밀번호를 입력받아 진료 기록 확인 
@@ -533,7 +579,57 @@ WHERE doctor_no=1;
   join doctor d on app.doctor_no=d.doctor_no
   join medical_record m on app.appt_no = m.appt_no
   where appt_status= 'complete' and u.user_id = 'user08' and u.user_pwd='password8';
+  ```
+  </div>
+  </details>
+  <details>
+  <summary>병원이 회원의 진료 기록 저장</summary>
+  <div>
+   
+  * 병원이 진료가 완료된 진료 정보 저장
+  ```sql
+  INSERT INTO medical_record(record_diagnosis, record_treatment, appt_no)
+  VALUES('위염', '약 처방', 1);
+  ```
+  </div>
+  </details>
 
+#### 보호자 / 피보호자 설정 
+  <details>
+  <summary>보호자 신청</summary>
+  <div>
+   
+  * 보호자 회원 번호, 피보호자 회원 번호, 관계를 입력 받아 보호자 신청 
+  ```sql
+
+  INSERT INTO guardian(guard_no, ward_no, guard_relationship)
+  VALUES(1, 2, '부모');
+  ```
+  </div>
+  </details>
+  <details>
+  <summary>보호자 신청 수락</summary>
+  <div>
+   
+  * 보호자 허가 상태를 completed로 변경  
+  ```sql
+
+  UPDATE guardian
+  SET guard_allowed = 'completed'
+  WHERE guard_no = 1 AND ward_no = 2;
+  ```
+  </div>
+  </details>
+  <details>
+  <summary>보호자 신청 거절</summary>
+  <div>
+   
+  * 보호자 허가 상태를 rejected로 변경 
+  ```sql
+
+  UPDATE guardian
+  SET guard_allowed = 'rejected'
+  WHERE guard_no = 1 AND ward_no = 2;
   ```
   </div>
   </details>
