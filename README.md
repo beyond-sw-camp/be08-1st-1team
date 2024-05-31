@@ -53,10 +53,12 @@
 <!-- 구동 움짤 -->
 ### 주요 특징
 <details>
-###  <summary> DB 모델링</summary>
+### DB 모델링
+  <summary> 접기/펼치기 </summary>
 </details>
 <details>
-### <summary> DDL 및 주요 쿼리 </summary>
+### DDL 및 주요 쿼리
+  <summary> 접기/펼치기 </summary>
   <details>
     <summary> time_interval</summary>
   </details>
@@ -166,4 +168,13 @@ WHERE doctor_no=1;
 
 ## 👫 CO-OP
 ### WBS
+<details>
+  <summary>접기/펼치기
+    
+  </summary>
+  https://docs.google.com/spreadsheets/d/1hpVTMaa_74JfIQDtYtLpZEWX7O0yWWgvPrazUaNrMxc/edit#gid=1835326347
+  ![wbs](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/6ed5b4dd-06af-4889-93bd-82d9ee2614ea)
+
+</details>
+
 ### 회고
