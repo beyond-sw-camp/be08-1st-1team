@@ -52,10 +52,11 @@
 ## 💻 프로젝트 구현
 <!-- 구동 움짤 -->
 ### 주요 특징
-### DB 모델링
-### DDL 및 주요 쿼리
 <details>
-  <summary> 접기/펼치기</summary>
+  <summary>### DB 모델링</summary>
+</details>
+<details>
+<summary>### DDL 및 주요 쿼리 </summary>
   <details>
     <summary> time_interval</summary>
   </details>
