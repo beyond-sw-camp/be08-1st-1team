@@ -80,138 +80,136 @@
     <summary> DDL</summary>
 	  <pre><code>
 		  -- 유저 (user) 테이블 생성
-CREATE TABLE `user` (
-	`no_user`	INT	NOT NULL,
-	`password_user`	VARCHAR	NOT NULL,
-	`name_user`	VARCHAR	NOT NULL,
-	`age_user`	INT	NOT NULL,
-	`address_user`	VARCHAR	NULL,
-	`call_user`	VARCHAR	NULL,
-	`enrolldate_user`	DATE	NULL,
-	`onactive_user`	BOOLEAN	NOT NULL	DEFAULT FALSE,
-	`underlying_user`	VARCHAR	NULL,
-	`medicine_user`	VARCHAR	NULL,
-	`id_user`	VARCHAR	NOT NULL
-);
-
--- 병원 (hospital) 테이블 생성
-CREATE TABLE `hospital` (
-	`no_hospital`	INT	NOT NULL,
-	`password_hospital`	VARCHAR	NOT NULL,
-	`name_hospital`	VARCHAR	NOT NULL,
-	`call_hospital`	VARCHAR	NULL,
-	`room_hospital`	VARCHAR	NULL,
-	`id_hospital`	VARCHAR	NOT NULL
-);
-
--- 예약 (appointment) 테이블 생성
-CREATE TABLE `appointment` (
-	`no_appointment`	INT	NOT NULL,
-	`date_appointment`	DATE	NOT NULL,
-	`time_appointment`	DATE	NOT NULL,
-	`status_appointment`	VARCHAR	NOT NULL,
-	`no_hospital`	INT	NOT NULL,
-	`no_user`	INT	NOT NULL
-);
-
--- 진료기록(log_treatment) 테이블 생성
-CREATE TABLE `log_treatment` (
-	`no_care`	INT	NOT NULL,
-	`date_appointment`	DATE	NOT NULL,
-	`symptom_appointment`	VARCHAR	NOT NULL,
-	`diagnosis_appointment`	VARCHAR	NULL,
-	`treatment_appointment`	VARCHAR	NULL,
-	`id_doctor`	INT	NOT NULL,
-	`no_hospital`	INT	NOT NULL,
-	`no_user`	INT	NOT NULL
-);
-
--- 의사 (doctor) 테이블 생성
-CREATE TABLE `doctor` (
-	`no_doctor`	INT	NOT NULL,
-	`no_hospital`	INT	NOT NULL
-);
-
--- 근무시간 (worktime_doctor) 테이블 생성
-CREATE TABLE `worktime_doctor` (
-	`starttime_worktime`	DATE	NOT NULL,
-	`endtime_worktime`	DATE	NOT NULL,
-	`no_doctor`	INT	NOT NULL
-);
-
---  보호자 (guardians) 테이블 생성
-CREATE TABLE `guardians` (
-	`no_user`	INT	NOT NULL,
-	`relationship_guardians`	VARCHAR	NULL,
-	`allowed_guardians`	TINYINT	NOT NULL	DEFAULT 0
-);
-
--- 진료과 (spec) 테이블 생성
-CREATE TABLE `spec` (
-	`spec`	VARCHAR	NULL,
-	`no_doctor`	INT	NOT NULL,
-	`no_care`	INT	NOT NULL
-);
-
--- 병원시설 (facilities_hospital) 테이블 생성
-CREATE TABLE `facilities_hospital` (
-	`facilities`	VARCHAR	NULL,
-	`no_hospital`	INT	NOT NULL
-);
-
--- 병원장비 (equipment_hospital) 테이블 생성
-CREATE TABLE `equipment_hospital` (
-	`equipment`	VARCHAR	NULL,
-	`no_hospital`	INT	NOT NULL
-);
-
--- 병원위치정보 (location_hospital) 테이블 생성
-CREATE TABLE `location_hospital` (
-	`address`	VARCHAR	NOT NULL,
-	`latitude`	VARCHAR	NOT NULL,
-	`longitude`	VARCHAR	NOT NULL,
-	`no_hospital`	INT	NOT NULL
-);
-
--- 공지사항 (notice) 테이블 생성
-CREATE TABLE `notice` (
-	`no_hospital`	INT	NOT NULL,
-	`date_notice`	DATE	NOT NULL,
-	`body_notice`	VARCHAR	NOT NULL
-);
-
-ALTER TABLE `user` ADD CONSTRAINT `PK_USER` PRIMARY KEY (
-	`no_user`
-);
-
-ALTER TABLE `hospital` ADD CONSTRAINT `PK_HOSPITAL` PRIMARY KEY (
-	`no_hospital`
-);
-
-ALTER TABLE `appointment` ADD CONSTRAINT `PK_APPOINTMENT` PRIMARY KEY (
-	`no_appointment`
-);
-
-ALTER TABLE `log_treatment` ADD CONSTRAINT `PK_LOG_TREATMENT` PRIMARY KEY (
-	`no_care`
-);
-
-ALTER TABLE `doctor` ADD CONSTRAINT `PK_DOCTOR` PRIMARY KEY (
-	`no_doctor`
-);
-
-ALTER TABLE `guardians` ADD CONSTRAINT `PK_GUARDIANS` PRIMARY KEY (
-	`no_user`
-);
-
-ALTER TABLE `guardians` ADD CONSTRAINT `FK_user_TO_guardians_1` FOREIGN KEY (
-	`no_user`
-)
-REFERENCES `user` (
-	`no_user`
-);
-
-
+		CREATE TABLE `user` (
+			`no_user`	INT	NOT NULL,
+			`password_user`	VARCHAR	NOT NULL,
+			`name_user`	VARCHAR	NOT NULL,
+			`age_user`	INT	NOT NULL,
+			`address_user`	VARCHAR	NULL,
+			`call_user`	VARCHAR	NULL,
+			`enrolldate_user`	DATE	NULL,
+			`onactive_user`	BOOLEAN	NOT NULL	DEFAULT FALSE,
+			`underlying_user`	VARCHAR	NULL,
+			`medicine_user`	VARCHAR	NULL,
+			`id_user`	VARCHAR	NOT NULL
+		);
+		
+		-- 병원 (hospital) 테이블 생성
+		CREATE TABLE `hospital` (
+			`no_hospital`	INT	NOT NULL,
+			`password_hospital`	VARCHAR	NOT NULL,
+			`name_hospital`	VARCHAR	NOT NULL,
+			`call_hospital`	VARCHAR	NULL,
+			`room_hospital`	VARCHAR	NULL,
+			`id_hospital`	VARCHAR	NOT NULL
+		);
+		
+		-- 예약 (appointment) 테이블 생성
+		CREATE TABLE `appointment` (
+			`no_appointment`	INT	NOT NULL,
+			`date_appointment`	DATE	NOT NULL,
+			`time_appointment`	DATE	NOT NULL,
+			`status_appointment`	VARCHAR	NOT NULL,
+			`no_hospital`	INT	NOT NULL,
+			`no_user`	INT	NOT NULL
+		);
+		
+		-- 진료기록(log_treatment) 테이블 생성
+		CREATE TABLE `log_treatment` (
+			`no_care`	INT	NOT NULL,
+			`date_appointment`	DATE	NOT NULL,
+			`symptom_appointment`	VARCHAR	NOT NULL,
+			`diagnosis_appointment`	VARCHAR	NULL,
+			`treatment_appointment`	VARCHAR	NULL,
+			`id_doctor`	INT	NOT NULL,
+			`no_hospital`	INT	NOT NULL,
+			`no_user`	INT	NOT NULL
+		);
+		
+		-- 의사 (doctor) 테이블 생성
+		CREATE TABLE `doctor` (
+			`no_doctor`	INT	NOT NULL,
+			`no_hospital`	INT	NOT NULL
+		);
+		
+		-- 근무시간 (worktime_doctor) 테이블 생성
+		CREATE TABLE `worktime_doctor` (
+			`starttime_worktime`	DATE	NOT NULL,
+			`endtime_worktime`	DATE	NOT NULL,
+			`no_doctor`	INT	NOT NULL
+		);
+		
+		--  보호자 (guardians) 테이블 생성
+		CREATE TABLE `guardians` (
+			`no_user`	INT	NOT NULL,
+			`relationship_guardians`	VARCHAR	NULL,
+			`allowed_guardians`	TINYINT	NOT NULL	DEFAULT 0
+		);
+		
+		-- 진료과 (spec) 테이블 생성
+		CREATE TABLE `spec` (
+			`spec`	VARCHAR	NULL,
+			`no_doctor`	INT	NOT NULL,
+			`no_care`	INT	NOT NULL
+		);
+		
+		-- 병원시설 (facilities_hospital) 테이블 생성
+		CREATE TABLE `facilities_hospital` (
+			`facilities`	VARCHAR	NULL,
+			`no_hospital`	INT	NOT NULL
+		);
+		
+		-- 병원장비 (equipment_hospital) 테이블 생성
+		CREATE TABLE `equipment_hospital` (
+			`equipment`	VARCHAR	NULL,
+			`no_hospital`	INT	NOT NULL
+		);
+		
+		-- 병원위치정보 (location_hospital) 테이블 생성
+		CREATE TABLE `location_hospital` (
+			`address`	VARCHAR	NOT NULL,
+			`latitude`	VARCHAR	NOT NULL,
+			`longitude`	VARCHAR	NOT NULL,
+			`no_hospital`	INT	NOT NULL
+		);
+		
+		-- 공지사항 (notice) 테이블 생성
+		CREATE TABLE `notice` (
+			`no_hospital`	INT	NOT NULL,
+			`date_notice`	DATE	NOT NULL,
+			`body_notice`	VARCHAR	NOT NULL
+		);
+		
+		ALTER TABLE `user` ADD CONSTRAINT `PK_USER` PRIMARY KEY (
+			`no_user`
+		);
+		
+		ALTER TABLE `hospital` ADD CONSTRAINT `PK_HOSPITAL` PRIMARY KEY (
+			`no_hospital`
+		);
+		
+		ALTER TABLE `appointment` ADD CONSTRAINT `PK_APPOINTMENT` PRIMARY KEY (
+			`no_appointment`
+		);
+		
+		ALTER TABLE `log_treatment` ADD CONSTRAINT `PK_LOG_TREATMENT` PRIMARY KEY (
+			`no_care`
+		);
+		
+		ALTER TABLE `doctor` ADD CONSTRAINT `PK_DOCTOR` PRIMARY KEY (
+			`no_doctor`
+		);
+		
+		ALTER TABLE `guardians` ADD CONSTRAINT `PK_GUARDIANS` PRIMARY KEY (
+			`no_user`
+		);
+		
+		ALTER TABLE `guardians` ADD CONSTRAINT `FK_user_TO_guardians_1` FOREIGN KEY (
+			`no_user`
+		)
+		REFERENCES `user` (
+			`no_user`
+		);
 	  </code></pre>
   </details>
   
@@ -221,96 +219,95 @@ REFERENCES `user` (
       <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/0910f3fc-4b46-4968-b307-1809f2039b99" alt="Description of first image" width="300"/>
       <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/ccaed4d3-bcc1-403a-aa5b-266084773362" alt="Description of second image" width="300"/>
     </p>
-<pre><code>
--- 일주일간의 시간들 담을 테이블
-CREATE OR REPLACE TABLE time_interval (
-    half_hour DATETIME,
-    onactive ENUM('active', 'deactive'),
-    doctor_no INT,
-    FOREIGN KEY (doctor_no) REFERENCES doctor(doctor_no)
-);
-'''
-금일부터 일주일간의 시간들 생성 프로시저
-(오늘 이전은 삭제 오늘로부터 일주일 중 없는 시간이 있다면 생성,
-이미 테이블에 있는 시간에 대해서는 변동없음)
-'''
-
-DELIMITER $$
-
-CREATE OR REPLACE PROCEDURE loopwhile()
-BEGIN
-    DECLARE start_datetime DATETIME;
-    DECLARE end_datetime DATETIME;
-    DECLARE current_datetime DATETIME;
-
-    -- 시작과 종료 시간 설정
-    SET start_datetime = DATE(NOW());  -- 오늘 자정
-    SET end_datetime = DATE_ADD(start_datetime, INTERVAL 7 DAY);  -- 일주일 후
-
-    -- 오늘 이전의 데이터 삭제
-    DELETE FROM time_interval WHERE half_hour < start_datetime;
-
-    -- 의사별 일주일 간 30분 간격 데이터 삽입
-    WHILE start_datetime < end_datetime DO
-        INSERT INTO time_interval (half_hour, onactive, doctor_no)
-        SELECT start_datetime, 'deactive', doctor_no
-        FROM doctor
-        WHERE NOT EXISTS (
-            SELECT 1 FROM time_interval
-            WHERE half_hour = start_datetime AND doctor_no = doctor.doctor_no
-        );
-
-        -- 다음 30분 간격 설정
-        SET start_datetime = DATE_ADD(start_datetime, INTERVAL 30 MINUTE);
-    END WHILE;
-END$$
-
-DELIMITER ;
-
--- 일주일 시간 업데이트 프로시저 실행
-CALL loopwhile();
-
--- 근무시간 테이블 생성
-CREATE TABLE worktime (
-    doctor_no INT,
-    start_worktime DATETIME,
-    end_worktime DATETIME,
-    FOREIGN KEY (doctor_no) REFERENCES doctor(doctor_no)
-);
-
-DELIMITER $$
-
--- 근무시간표가 업데이트 될 때 해당 사이 시간 active 로 변경
-CREATE TRIGGER activate_time_intervals
-AFTER INSERT ON worktime
-FOR EACH ROW
-BEGIN
-    -- time_interval 테이블의 onactive 상태를 'active'로 업데이트
-    UPDATE time_interval
-    SET onactive = 'active'
-    WHERE doctor_no = NEW.doctor_no
-      AND half_hour >= NEW.start_worktime
-      AND half_hour <= NEW.end_worktime;
-END$$
-
-DELIMITER ;
-
--- 특정 의사의 특정 시간에 대해서 activate 하는 쿼리 ( deactive도 문제 없음 )
-UPDATE time_interval
-SET onactive = 'active'
-WHERE doctor_no = 1
-  AND half_hour = '2024-05-01 08:00:00';
-  
--- worktime 테스트 케이스 삽입
-INSERT INTO worktime (doctor_no, start_worktime, end_worktime) VALUES
-(1, '2024-06-02 08:00:00', '2024-06-02 09:30:00');
-
--- time_interval 테이블 업데이트 확인
-SELECT *
-FROM time_interval
-WHERE doctor_no=1;
-</code></pre>
-
+	<pre><code>
+		-- 일주일간의 시간들 담을 테이블
+		CREATE OR REPLACE TABLE time_interval (
+		    half_hour DATETIME,
+		    onactive ENUM('active', 'deactive'),
+		    doctor_no INT,
+		    FOREIGN KEY (doctor_no) REFERENCES doctor(doctor_no)
+		);
+		'''
+		금일부터 일주일간의 시간들 생성 프로시저
+		(오늘 이전은 삭제 오늘로부터 일주일 중 없는 시간이 있다면 생성,
+		이미 테이블에 있는 시간에 대해서는 변동없음)
+		'''
+		
+		DELIMITER $$
+		
+		CREATE OR REPLACE PROCEDURE loopwhile()
+		BEGIN
+		    DECLARE start_datetime DATETIME;
+		    DECLARE end_datetime DATETIME;
+		    DECLARE current_datetime DATETIME;
+		
+		    -- 시작과 종료 시간 설정
+		    SET start_datetime = DATE(NOW());  -- 오늘 자정
+		    SET end_datetime = DATE_ADD(start_datetime, INTERVAL 7 DAY);  -- 일주일 후
+		
+		    -- 오늘 이전의 데이터 삭제
+		    DELETE FROM time_interval WHERE half_hour < start_datetime;
+		
+		    -- 의사별 일주일 간 30분 간격 데이터 삽입
+		    WHILE start_datetime < end_datetime DO
+			INSERT INTO time_interval (half_hour, onactive, doctor_no)
+			SELECT start_datetime, 'deactive', doctor_no
+			FROM doctor
+			WHERE NOT EXISTS (
+			    SELECT 1 FROM time_interval
+			    WHERE half_hour = start_datetime AND doctor_no = doctor.doctor_no
+			);
+		
+			-- 다음 30분 간격 설정
+			SET start_datetime = DATE_ADD(start_datetime, INTERVAL 30 MINUTE);
+		    END WHILE;
+		END$$
+		
+		DELIMITER ;
+		
+		-- 일주일 시간 업데이트 프로시저 실행
+		CALL loopwhile();
+		
+		-- 근무시간 테이블 생성
+		CREATE TABLE worktime (
+		    doctor_no INT,
+		    start_worktime DATETIME,
+		    end_worktime DATETIME,
+		    FOREIGN KEY (doctor_no) REFERENCES doctor(doctor_no)
+		);
+		
+		DELIMITER $$
+		
+		-- 근무시간표가 업데이트 될 때 해당 사이 시간 active 로 변경
+		CREATE TRIGGER activate_time_intervals
+		AFTER INSERT ON worktime
+		FOR EACH ROW
+		BEGIN
+		    -- time_interval 테이블의 onactive 상태를 'active'로 업데이트
+		    UPDATE time_interval
+		    SET onactive = 'active'
+		    WHERE doctor_no = NEW.doctor_no
+		      AND half_hour >= NEW.start_worktime
+		      AND half_hour <= NEW.end_worktime;
+		END$$
+		
+		DELIMITER ;
+		
+		-- 특정 의사의 특정 시간에 대해서 activate 하는 쿼리 ( deactive도 문제 없음 )
+		UPDATE time_interval
+		SET onactive = 'active'
+		WHERE doctor_no = 1
+		  AND half_hour = '2024-05-01 08:00:00';
+		  
+		-- worktime 테스트 케이스 삽입
+		INSERT INTO worktime (doctor_no, start_worktime, end_worktime) VALUES
+		(1, '2024-06-02 08:00:00', '2024-06-02 09:30:00');
+		
+		-- time_interval 테이블 업데이트 확인
+		SELECT *
+		FROM time_interval
+		WHERE doctor_no=1;
+	</code></pre>
   </details>
 
 ### 테스트 케이스
