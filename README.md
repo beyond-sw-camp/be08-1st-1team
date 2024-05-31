@@ -58,8 +58,8 @@
 <details>
 <summary> 접기/펼치기</summary>
   <p align="center">
-  <img src="![time_interval_table_image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/0910f3fc-4b46-4968-b307-1809f2039b99)" alt="Description of first image" width="300"/>
-  <img src="![worktime_insert](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/ccaed4d3-bcc1-403a-aa5b-266084773362)" alt="Description of second image" width="300"/>
+  <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/0910f3fc-4b46-4968-b307-1809f2039b99" alt="Description of first image" width="300"/>
+  <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/ccaed4d3-bcc1-403a-aa5b-266084773362" alt="Description of second image" width="300"/>
 </p>
 
 
