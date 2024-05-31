@@ -166,6 +166,9 @@ WHERE doctor_no=1;
 
 ### 테스트 케이스
 <details>
+  <summary>Tables</summary>
+
+<details>
   <summary> User Table </summary>
   
   | user_id     | user_pwd     | user_name     | user_birthdate | user_addr         | user_phone   | user_disease   | user_medicine  |
@@ -338,6 +341,7 @@ WHERE doctor_no=1;
 | Unavailable for requested time    | 2       |
 | Doctor on leave                   | 3       |
 
+</details>
 </details>
 
 ## 👫 CO-OP
