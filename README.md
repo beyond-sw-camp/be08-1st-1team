@@ -56,6 +56,7 @@
 ### DDL 및 주요 쿼리
 #### time_interval
 <details>
+  <summary> 접기/펼치기</summary>
   <details>
   <summary> 접기/펼치기</summary>
     <p align="center">
