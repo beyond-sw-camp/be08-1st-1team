@@ -359,6 +359,42 @@ WHERE doctor_no=1;
 
 </details>
 </details>
+<details>
+  <summary>PK,FK</summary>
+
+'''
+ALTER TABLE `user` ADD CONSTRAINT `PK_USER` PRIMARY KEY (
+	`no_user`
+);
+
+ALTER TABLE `hospital` ADD CONSTRAINT `PK_HOSPITAL` PRIMARY KEY (
+	`no_hospital`
+);
+
+ALTER TABLE `appointment` ADD CONSTRAINT `PK_APPOINTMENT` PRIMARY KEY (
+	`no_appointment`
+);
+
+ALTER TABLE `log_treatment` ADD CONSTRAINT `PK_LOG_TREATMENT` PRIMARY KEY (
+	`no_care`
+);
+
+ALTER TABLE `doctor` ADD CONSTRAINT `PK_DOCTOR` PRIMARY KEY (
+	`no_doctor`
+);
+
+ALTER TABLE `guardians` ADD CONSTRAINT `PK_GUARDIANS` PRIMARY KEY (
+	`no_user`
+);
+
+ALTER TABLE `guardians` ADD CONSTRAINT `FK_user_TO_guardians_1` FOREIGN KEY (
+	`no_user`
+)
+REFERENCES `user` (
+	`no_user`
+);
+'''
+</details>
 
 ## 👫 CO-OP
 
