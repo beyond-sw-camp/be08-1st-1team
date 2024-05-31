@@ -79,7 +79,7 @@
 <details>
 	<summary> DDL</summary>
 	<pre><code>
-\	
+\n
 유저 (user) 테이블 생성
 CREATE TABLE `user` (
 	`no_user`	INT	NOT NULL,
