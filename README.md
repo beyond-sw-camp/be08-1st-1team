@@ -54,11 +54,13 @@
 ### 주요 특징
 
 ### DB 모델링
-
+<details>
+  <summary> <span class="summary-header">개념 모델링</span></summary>
+</details>
 
   
 ### DDL 및 주요 쿼리
-  <summary> 접기/펼치기 </summary>
+
   <details>
     <summary> time_interval</summary>
   </details>
