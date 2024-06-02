@@ -97,8 +97,6 @@
   <details>
   <summary>DDL</summary>
   <div>
-	```sql
-	  
 		# 회원 테이블
 		CREATE TABLE `user` (
 			`user_no`	INT AUTO_INCREMENT PRIMARY KEY,											-- 유저 식별번호
@@ -255,7 +253,6 @@
 		   launch_end TIME NOT NULL,							-- 점심 정료시간
 		   hosp_no INT NOT NULL REFERENCES hospital(hosp_no)				-- 병원 식별번호
 		);
-	```
   </div>
   </details>
 
