@@ -401,6 +401,8 @@ WHERE doctor_no=1;
   INSERT INTO hospital(hosp_id, hosp_pwd, hosp_name, hosp_phone)
   VALUES('hosp11', 'password11', '바른 병원', '01011223345');
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/80452437/28ad5a2f-1bfd-4c89-9efd-e37f323ed6e6)
+
   </div>
   </details>
   <details>
