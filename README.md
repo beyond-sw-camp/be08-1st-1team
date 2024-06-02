@@ -547,6 +547,7 @@ WHERE doctor_no=1;
   JOIN user u ON u.user_no = a.user_no
   WHERE h.hosp_id = 'hosp03';
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/aa23006f-8840-4522-8495-1c0f56575784)
   </div>
   </details>
 
@@ -568,6 +569,7 @@ WHERE doctor_no=1;
                       AND `user_pwd` = 'password3');
   SELECT * FROM appointment;
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/cc285ea9-61dc-49e8-89f1-c8861484ee86)
   </div>
   </details>
   <details>
@@ -623,6 +625,7 @@ WHERE doctor_no=1;
   -- CALL 예시
   CALL CancelAppointmentByGuardian(6, 'user06', 'password6', 1, 10);
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/d7792eaf-1712-443a-88ac-2798f19acb34)
   </div>
   </details>
 <details>
@@ -651,6 +654,8 @@ WHERE doctor_no=1;
   SET appt_status = "rejected"
   WHERE appt_status = "waiting" AND hosp_no = 1 AND appt_no = 8;
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/aebaa8a5-71e4-41bf-986d-733d37568828)
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/74a4f2c3-4a01-4455-a3ea-76da633b66f5)
   </div>
   </details>
 
