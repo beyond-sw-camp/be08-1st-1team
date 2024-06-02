@@ -624,8 +624,9 @@ WHERE doctor_no=1;
   DELIMITER ;
 
   -- CALL 예시
-  CALL CancelAppointmentByGuardian(6, 'user06', 'password6', 1, 10);
+  CALL CancelAppointmentByGuardian(6, 'user06', 'password6', 1, 9);
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/6a95345e-1384-4190-8a79-73f2577c678c)
 ![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/d7792eaf-1712-443a-88ac-2798f19acb34)
   </div>
   </details>
