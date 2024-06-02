@@ -94,7 +94,7 @@
 
   
 ### DDL
-<details>
+<details> DDL
 	```sql
 	# 회원 테이블
 	CREATE TABLE `user` (
