@@ -525,6 +525,7 @@ WHERE doctor_no=1;
   -- CALL 예시 
   CALL AddAppointmentByGuardian(6, 1, '2024-06-02 08:30:00', '고혈압 증상', 1, 1, 'user06', 'user01');
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/44601597-23e3-473c-ad1f-c0c7016179e0)
   </div>
   </details>
   <details>
