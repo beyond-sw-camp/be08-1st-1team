@@ -678,6 +678,8 @@ WHERE doctor_no=1;
           and u.user_no=1     -- 유저 고유식별값
           and appt_status ='waiting'; -- 예약 상태
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/78b09603-67f5-46b7-88ad-a32fb2b3b0d4)
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/d930cb68-8763-4763-a3fa-0d6e1d120588)
   </div>
   </details>
   <details>
@@ -698,6 +700,8 @@ WHERE doctor_no=1;
                               and user_pwd='password6' -- 보호자 pwd
                               and g.guard_allowed='completed') ; -- 예약 상태
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/76814e3c-cf25-419e-98ee-22ba80e46bc6)
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/cd5ca216-f597-41ec-baa1-99f9c97f6572)
   </div>
   </details>
 
@@ -736,6 +740,9 @@ WHERE doctor_no=1;
 
   call change_appointment_status(1,'rejected','담당의사가 개인사정으로 오늘 휴진합니다.');
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/03e64a62-39a7-49b0-87ce-3a9fdd2ee2d4)
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/c5e3be0f-a02b-420a-b181-bdbc154c494d)
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/d920de2b-538b-4323-af2e-473d66f77fcc)
   </div>
   </details>
 
@@ -761,6 +768,7 @@ WHERE doctor_no=1;
   join medical_record m on app.appt_no = m.appt_no
   where appt_status= 'complete' and u.user_id = 'user08' and u.user_pwd='password8';
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/ec52be40-6351-4a59-8f24-f3cacf108119)
   </div>
   </details>
   <details>
@@ -769,9 +777,10 @@ WHERE doctor_no=1;
    
   * 병원이 진료가 완료된 진료 정보 저장
   ```sql
-  INSERT INTO medical_record(record_diagnosis, record_treatment, appt_no)
-  VALUES('위염', '약 처방', 1);
+  INSERT INTO medical_record(record_diagnosis, record_treatment, appt_no, hosp_no, user_no, docdept_no)
+  VALUES('위염', '약 처방', 8, 1, 6, 1);
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/faf3383c-417a-4760-934c-06589b0e8c42)
   </div>
   </details>
 
