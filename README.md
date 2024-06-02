@@ -793,6 +793,8 @@ WHERE doctor_no=1;
   SET guard_allowed = 'completed'
   WHERE guard_no = 1 AND ward_no = 2;
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/80452437/c30a22c8-e574-4ab7-89a3-5152439a1623)
+
   </div>
   </details>
   <details>
@@ -806,6 +808,8 @@ WHERE doctor_no=1;
   SET guard_allowed = 'rejected'
   WHERE guard_no = 1 AND ward_no = 2;
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/80452437/a180ac2c-4544-4511-be43-4c53be77f655)
+
   </div>
   </details>
   
