@@ -778,6 +778,8 @@ WHERE doctor_no=1;
   INSERT INTO guardian(guard_no, ward_no, guard_relationship)
   VALUES(1, 2, '부모');
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/80452437/1468c121-3f4e-47db-851b-0e7c666a8294)
+
   </div>
   </details>
   <details>
