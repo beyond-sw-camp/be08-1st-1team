@@ -371,7 +371,7 @@ WHERE doctor_no=1;
 
   ```sql
   INSERT INTO user(user_id, user_pwd, user_name, user_birthdate, user_addr, user_phone)
-  VALUES('user11', 'password11', '이지정', '1999-04-09', '김포한강1로9 901-1002', '01068800175');
+  VALUE('user11', 'password11', '이장선', '1996-06-03', '경기도김포시 장기동 123-43', '01099487826');
   ```
   </div>
   </details>
