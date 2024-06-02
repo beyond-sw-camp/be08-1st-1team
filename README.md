@@ -415,6 +415,8 @@ WHERE doctor_no=1;
       secession_date = NOW()
   WHERE hosp_no = 11;
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/80452437/a632201b-40dc-454e-bc01-8a59087bb7ae)
+
   </div>
   </details>
 
