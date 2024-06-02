@@ -286,7 +286,7 @@ CREATE OR REPLACE TABLE time_interval (
 (오늘 이전은 삭제 오늘로부터 일주일 중 없는 시간이 있다면 생성,
 이미 테이블에 있는 시간에 대해서는 변동없음)
 '''
-
+https://github.com/beyond-sw-camp/be08-1st-primary-findoc/blob/main/README.md
 DELIMITER $$
 
 CREATE OR REPLACE PROCEDURE loopwhile()
@@ -372,9 +372,9 @@ WHERE doctor_no=1;
   ```sql
   INSERT INTO user(user_id, user_pwd, user_name, user_birthdate, user_addr, user_phone)
   VALUE('user11', 'password11', '이장선', '1996-06-03', '경기도김포시 장기동 123-43', '01099487826');
-![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/80452437/dba7ccd2-5015-46b3-bc24-bcead2f37d82)
 
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/80452437/dba7ccd2-5015-46b3-bc24-bcead2f37d82)
   </div>
   </details>
   <details>
