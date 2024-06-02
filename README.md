@@ -94,164 +94,166 @@
 
   
 ### DDL
-```sql
-# 회원 테이블
-CREATE TABLE `user` (
-	`user_no`	INT AUTO_INCREMENT PRIMARY KEY,												            					-- 유저 식별번호
-	`user_id`	VARCHAR(20)	NOT NULL UNIQUE,																						-- 유저 ID
-	`user_pwd`	VARCHAR(20)	NOT NULL,																								-- 유저 Password
-	`user_name`	VARCHAR(20)	NOT NULL,																								-- 유저 이름
-	`user_birthdate`	DATE NOT NULL,																									-- 유저 생년월일
-	`user_addr`	VARCHAR(50)	NULL,																										-- 유저 주소
-	`user_phone`	VARCHAR(15)	NOT NULL UNIQUE,																					--	유저 전화번호
-	`user_enrolldate`	DATE	NOT NULL	DEFAULT CURDATE(),																		-- 유저 회원가입일
-	`user_disease`	VARCHAR(50),																									-- 유저 기저질환
-	`user_medicine`	VARCHAR(50),																									-- 유저 복용중인 약
-	`user_secession`	ENUM('activate', 'deactivate', 'suspended')	NOT NULL	DEFAULT 'activate',	            -- 유저 탈퇴여부(활성화, 비활성화, 정지)
-	`secession_date`	DATETIME																											-- 유저 탈퇴날짜
-);
-
-
-# 보호자/피보호자 테이블
-CREATE TABLE `guardian` (
-	`guard_no`	INT	NOT NULL REFERENCES user(`user_no`),														-- 보호자(유저 식별번호)
-	`ward_no`	INT	NOT NULL REFERENCES user(`user_no`),														-- 피보호자(유저 식별번호)
-	`guard_relationship`	VARCHAR(20)	NULL,																				-- 보호자/피보호자 관계
-	`guard_allowed`	ENUM('waiting', 'completed', 'rejected')	NOT NULL	DEFAULT 'waiting',		   -- 보호자/피보호자 신청 상태(대기, 연결완료, 거절)
-	PRIMARY KEY(guard_no, ward_no)
-);
-
-
-# 병원 테이블
-CREATE TABLE `hospital` (
-	`hosp_no`	INT AUTO_INCREMENT	PRIMARY KEY,																    	-- 병원 유저 식별번호
-	`hosp_id`	VARCHAR(20)	NOT NULL UNIQUE,																				--	병원 유저  ID
-	`hosp_pwd`	VARCHAR(20)	NOT NULL,																						-- 병원 유저 Password
-	`hosp_name`	VARCHAR(30)	NOT NULL,																						-- 병원 이름
-	`hosp_phone`	VARCHAR(15)	NULL UNIQUE,																				-- 병원 전화번호
-	`hosp_secession` ENUM('activate', 'deactivate', 'suspended') NOT NULL	DEFAULT 'activate',	      -- 병원 유저 탈퇴 여부(활성화, 비활성화, 정지)
-	`secession_date` DATETIME																				    			-- 병원 유저 탈퇴날짜
-);
-
-
-# 병원 위치정보 테이블
-CREATE TABLE `location` (
-   `loc_no` INT AUTO_INCREMENT PRIMARY KEY,                       -- 병원 위치정보 식별 번호
-	`loc_addr`	VARCHAR(100)	NOT NULL UNIQUE,							-- 병원 주소
-	`loc_lat`	DOUBLE	NOT NULL,											-- 병원 위도
-	`loc_long`	DOUBLE	NOT NULL,											-- 병원 경도
-	`hosp_no`	INT	NOT NULL REFERENCES `hospital`(`hosp_no`)		-- 병원 식별 번호
-);
-
-
-
-# 병원 공지사항 테이블
-CREATE TABLE `notice` (
-   `notice_no` INT AUTO_INCREMENT PRIMARY KEY,                 -- 공지사항 식별 번호
-	`notice_datetime`	DATETIME	NOT NULL	DEFAULT CURTIME(),		-- 공지사항 입력 날짜
-	`notice_body`	VARCHAR(300)	NOT NULL,							-- 공지사항 내용
-	`hosp_no`	INT	NOT NULL REFERENCES hospital(`hosp_no`)	-- 병원 식별번호
-);
-
-
-# 병원 시설 테이블
-CREATE TABLE `facility` (
-   `facility_no` INT AUTO_INCREMENT PRIMARY KEY,           		-- 시설 식별 번호
-	`facility_name`	VARCHAR(50)	NOT NULL,							-- 병원 시설 이름
-	`hosp_no`	INT	NOT NULL REFERENCES hospital(`hosp_no`)	-- 병원 식별 번호
-);
-
-
-# 병원 장비 테이블
-CREATE TABLE `equipment` (
-   `equipment_no` INT AUTO_INCREMENT PRIMARY KEY,          		-- 테이블 pk
-	`equipment_name`	VARCHAR(50)	NOT NULL,							-- 병원 장비 이름
-	`hosp_no`	INT	NOT NULL REFERENCES hospital(`hosp_no`)	-- 병원 식별 번호
-);
-
-
-# 의사 진료과목 목록 테이블
-CREATE TABLE `department` (
-	`dept_id`	VARCHAR(10)	PRIMARY KEY,		-- 진료과 ID
-	`dept_name`	VARCHAR(30)	NOT NULL				-- 진료과 이름
-);
-
-
-# 의사 테이블
-CREATE TABLE `doctor` (
-    `doctor_no`    INT AUTO_INCREMENT PRIMARY KEY,							-- 의사 식별 번호
-    `hosp_no`    INT    NOT NULL REFERENCES `hospital`(`hosp_no`),	-- 병원 식별 번호
-    `doctor_name` VARCHAR(40) NOT NULL,										-- 의사 이름
-    `doctor_gender` ENUM('F', 'M') NULL										-- 의사 성별
-);
-
-
-# 의사의 진료과목, 진료실 테이블
-CREATE TABLE `doctor_dept` (
-	`docdept_no`	INT	AUTO_INCREMENT	PRIMARY KEY,							-- 의사_진료과 식별 번호
-	`doctor_no`	INT	NOT NULL REFERENCES doctor(`doctor_no`),				-- 의사 식별번호
-	`dept_id`	VARCHAR(10)	NOT NULL	REFERENCES department(`dept_id`),	-- 진료과목 ID
-	`docdept_room` VARCHAR(20)															-- 의사 진료실명
-);
-
-# 의사 진료시간 테이블
-CREATE TABLE `worktime` (
-   `worktime_no` INT AUTO_INCREMENT PRIMARY KEY,                        -- 테이블 pk
-	`worktime_start`	DATETIME	NOT NULL,											-- 의사 진료 시작 시간
-	`worktime_end`	DATETIME	NOT NULL,												-- 의사 진료 종료 시간
-	`doctor_no`	INT	NOT NULL REFERENCES doctor(`doctor_no`)				-- 의사 식별 번호
-);
-
-
-# 예약 테이블
-CREATE TABLE `appointment` (
-	`appt_no`	INT AUTO_INCREMENT	PRIMARY KEY,																		-- 예약 식별 번호
-	`appt_date`	DATETIME	NOT NULL,																							-- 예약 날짜시간
-	`appt_status`	ENUM('waiting', 'accepted', 'rejected', 'complete')	NOT NULL	DEFAULT 'waiting',	-- 예약 상태(대기, 승인, 거절, 진료완료)
-	`appt_symptom`	VARCHAR(50)	NULL,																							-- 예약 증상
-	`user_no`	INT	NOT NULL REFERENCES `user`(`user_no`),															-- 유저 식별 번호
-	`hosp_no`	INT	NOT NULL REFERENCES hospital(`hosp_no`),														-- 병원 식별 번호
-	`doctor_no`	INT	NOT NULL REFERENCES doctor(`doctor_no`),														-- 의사 식별 번호
-	`guard_ID` VARCHAR(20),																										-- 보호자 ID
-	`ward_ID` VARCHAR(20)																										-- 피보호자 ID
-);
-
-
-# 진료기록 테이블
-CREATE TABLE `medical_record` (
-	`record_no`	INT	AUTO_INCREMENT PRIMARY KEY,										-- 진료기록 식별 번호
-	`record_diagnosis`	VARCHAR(100)	NULL,												-- 진료 진단 내용
-	`record_treatment`	VARCHAR(100)	NULL,												-- 진료 치료 내용
-	`appt_no`	INT	NOT NULL UNIQUE REFERENCES `appointment`(`appt_no`)		-- 예약 식별 번호
-);
-
-
-
-# 거절 사유 테이블
-CREATE TABLE `rejection`(
-   `rejection_no` INT	AUTO_INCREMENT PRIMARY KEY,		            -- 거절 사유 식별 번호
-	`rejection_result` VARCHAR(100) NOT NULL,									-- 거절 이유
-	`appt_no` INT NOT NULL REFERENCES `appointment`(`appt_no`)			-- 예약 식별 번호
-);
-
-
-# 의사 스케줄  테이블
-CREATE TABLE schedule(
-	schedule_no INT AUTO_INCREMENT PRIMARY KEY,											-- 스케줄 식별 번호
-   schedule_time DATETIME NOT NULL,															-- 스케줄 시간목록
-   schedule_onactive ENUM('active', 'deactive') NOT NULL DEFAULT 'active',		-- 예약 가능여부
-   doctor_no INT NOT NULL REFERENCES doctor(doctor_no)								-- 의사 식별번호
-);
-
-
-# 병원 점심시간 테이블
-CREATE TABLE launch(
-	launch_no INT AUTO_INCREMENT PRIMARY KEY,											-- 점심시간 식별 번호
-   launch_start TIME NOT NULL,															-- 점심 시작 시간
-   launch_end TIME NOT NULL,																-- 점심 정료시간
-   hosp_no INT NOT NULL REFERENCES hospital(hosp_no)								-- 병원 식별번호
-);
+<details>
+	```sql
+	# 회원 테이블
+	CREATE TABLE `user` (
+		`user_no`	INT AUTO_INCREMENT PRIMARY KEY,											-- 유저 식별번호
+		`user_id`	VARCHAR(20)	NOT NULL UNIQUE,										-- 유저 ID
+		`user_pwd`	VARCHAR(20)	NOT NULL,											-- 유저 Password
+		`user_name`	VARCHAR(20)	NOT NULL,											-- 유저 이름
+		`user_birthdate`	DATE NOT NULL,												-- 유저 생년월일
+		`user_addr`	VARCHAR(50)	NULL,												-- 유저 주소
+		`user_phone`	VARCHAR(15)	NOT NULL UNIQUE,										-- 유저 전화번호
+		`user_enrolldate`	DATE	NOT NULL	DEFAULT CURDATE(),								-- 유저 회원가입일
+		`user_disease`	VARCHAR(50),													-- 유저 기저질환
+		`user_medicine`	VARCHAR(50),													-- 유저 복용중인 약
+		`user_secession`	ENUM('activate', 'deactivate', 'suspended')	NOT NULL	DEFAULT 'activate',			-- 유저 탈퇴여부(활성화, 비활성화, 정지)
+		`secession_date`	DATETIME												-- 유저 탈퇴날짜
+	);
+	
+	
+	# 보호자/피보호자 테이블
+	CREATE TABLE `guardian` (
+		`guard_no`	INT	NOT NULL REFERENCES user(`user_no`)								-- 보호자(유저 식별번호)
+		`ward_no`	INT	NOT NULL REFERENCES user(`user_no`),								-- 피보호자(유저 식별번호)
+		`guard_relationship`	VARCHAR(20)	NULL,										-- 보호자/피보호자 관계
+		`guard_allowed`	ENUM('waiting', 'completed', 'rejected')	NOT NULL	DEFAULT 'waiting',			-- 보호자/피보호자 신청 상태(대기, 연결완료, 거절)
+		PRIMARY KEY(guard_no, ward_no)
+	);
+	
+	
+	# 병원 테이블
+	CREATE TABLE `hospital` (
+		`hosp_no`	INT AUTO_INCREMENT	PRIMARY KEY,									-- 병원 유저 식별번호
+		`hosp_id`	VARCHAR(20)	NOT NULL UNIQUE,									-- 병원 유저  ID
+		`hosp_pwd`	VARCHAR(20)	NOT NULL,										-- 병원 유저 Password
+		`hosp_name`	VARCHAR(30)	NOT NULL,										-- 병원 이름
+		`hosp_phone`	VARCHAR(15)	NULL UNIQUE,										-- 병원 전화번호
+		`hosp_secession` ENUM('activate', 'deactivate', 'suspended') NOT NULL	DEFAULT 'activate',				-- 병원 유저 탈퇴 여부(활성화, 비활성화, 정지)
+		`secession_date` DATETIM												-- 병원 유저 탈퇴날짜
+	);
+	
+	
+	# 병원 위치정보 테이블
+	CREATE TABLE `location` (
+	   `loc_no` INT AUTO_INCREMENT PRIMARY KEY,							-- 병원 위치정보 식별 번호
+		`loc_addr`	VARCHAR(100)	NOT NULL UNIQUE,					-- 병원 주소
+		`loc_lat`	DOUBLE	NOT NULL,							-- 병원 위도
+		`loc_long`	DOUBLE	NOT NULL,							-- 병원 경도
+		`hosp_no`	INT	NOT NULL REFERENCES `hospital`(`hosp_no`)			-- 병원 식별 번호
+	);
+	
+	
+	
+	# 병원 공지사항 테이블
+	CREATE TABLE `notice` (
+	   `notice_no` INT AUTO_INCREMENT PRIMARY KEY,								-- 공지사항 식별 번호
+		`notice_datetime`	DATETIME	NOT NULL	DEFAULT CURTIME(),			-- 공지사항 입력 날짜
+		`notice_body`	VARCHAR(300)	NOT NULL,							-- 공지사항 내용
+		`hosp_no`	INT	NOT NULL REFERENCES hospital(`hosp_no`)					-- 병원 식별번호
+	);
+	
+	
+	# 병원 시설 테이블
+	CREATE TABLE `facility` (
+	   `facility_no` INT AUTO_INCREMENT PRIMARY KEY,					-- 시설 식별 번호
+		`facility_name`	VARCHAR(50)	NOT NULL,					-- 병원 시설 이름
+		`hosp_no`	INT	NOT NULL REFERENCES hospital(`hosp_no`)			-- 병원 식별 번호
+	);
+	
+	
+	# 병원 장비 테이블
+	CREATE TABLE `equipment` (
+	   `equipment_no` INT AUTO_INCREMENT PRIMARY KEY,				-- 테이블 pk
+		`equipment_name`	VARCHAR(50)	NOT NULL,			-- 병원 장비 이름
+		`hosp_no`	INT	NOT NULL REFERENCES hospital(`hosp_no`)		-- 병원 식별 번호
+	);
+	
+	
+	# 의사 진료과목 목록 테이블
+	CREATE TABLE `department` (
+		`dept_id`	VARCHAR(10)	PRIMARY KEY,		-- 진료과 ID
+		`dept_name`	VARCHAR(30)	NOT NULL		-- 진료과 이름
+	);
+	
+	
+	# 의사 테이블
+	CREATE TABLE `doctor` (
+	    `doctor_no`    INT AUTO_INCREMENT PRIMARY KEY,				-- 의사 식별 번호
+	    `hosp_no`    INT    NOT NULL REFERENCES `hospital`(`hosp_no`),		-- 병원 식별 번호
+	    `doctor_name` VARCHAR(40) NOT NULL,						-- 의사 이름
+	    `doctor_gender` ENUM('F', 'M') NULL						-- 의사 성별
+	);
+	
+	
+	# 의사의 진료과목, 진료실 테이블
+	CREATE TABLE `doctor_dept` (
+		`docdept_no`	INT	AUTO_INCREMENT	PRIMARY KEY,					-- 의사_진료과 식별 번호
+		`doctor_no`	INT	NOT NULL REFERENCES doctor(`doctor_no`),			-- 의사 식별번호
+		`dept_id`	VARCHAR(10)	NOT NULL	REFERENCES department(`dept_id`),	-- 진료과목 ID
+		`docdept_room` VARCHAR(20)								-- 의사 진료실명
+	);
+	
+	# 의사 진료시간 테이블
+	CREATE TABLE `worktime` (
+	   `worktime_no` INT AUTO_INCREMENT PRIMARY KEY,					-- 테이블 pk
+		`worktime_start`	DATETIME	NOT NULL,				-- 의사 진료 시작 시간
+		`worktime_end`	DATETIME	NOT NULL,					-- 의사 진료 종료 시간
+		`doctor_no`	INT	NOT NULL REFERENCES doctor(`doctor_no`)			-- 의사 식별 번호
+	);
+	
+	
+	# 예약 테이블
+	CREATE TABLE `appointment` (
+		`appt_no`	INT AUTO_INCREMENT	PRIMARY KEY,								-- 예약 식별 번호
+		`appt_date`	DATETIME	NOT NULL,									-- 예약 날짜시간
+		`appt_status`	ENUM('waiting', 'accepted', 'rejected', 'complete')	NOT NULL	DEFAULT 'waiting',	-- 예약 상태(대기, 승인, 거절, 진료완료)
+		`appt_symptom`	VARCHAR(50)	NULL,										-- 예약 증상
+		`user_no`	INT	NOT NULL REFERENCES `user`(`user_no`),							-- 유저 식별 번호
+		`hosp_no`	INT	NOT NULL REFERENCES hospital(`hosp_no`),						-- 병원 식별 번호
+		`doctor_no`	INT	NOT NULL REFERENCES doctor(`doctor_no`),						-- 의사 식별 번호
+		`guard_ID` VARCHAR(20),												-- 보호자 ID
+		`ward_ID` VARCHAR(20)												-- 피보호자 ID
+	);
+	
+	
+	# 진료기록 테이블
+	CREATE TABLE `medical_record` (
+		`record_no`	INT	AUTO_INCREMENT PRIMARY KEY,								-- 진료기록 식별 번호
+		`record_diagnosis`	VARCHAR(100)	NULL,									-- 진료 진단 내용
+		`record_treatment`	VARCHAR(100)	NULL,									-- 진료 치료 내용
+		`appt_no`	INT	NOT NULL UNIQUE REFERENCES `appointment`(`appt_no`)					-- 예약 식별 번호
+	);
+	
+	
+	
+	# 거절 사유 테이블
+	CREATE TABLE `rejection`(
+	   `rejection_no` INT	AUTO_INCREMENT PRIMARY KEY,		            	-- 거절 사유 식별 번호
+		`rejection_result` VARCHAR(100) NOT NULL,				-- 거절 이유
+		`appt_no` INT NOT NULL REFERENCES `appointment`(`appt_no`)		-- 예약 식별 번호
+	);
+	
+	
+	# 의사 스케줄  테이블
+	CREATE TABLE schedule(
+		schedule_no INT AUTO_INCREMENT PRIMARY KEY,				-- 스케줄 식별 번호
+	   schedule_time DATETIME NOT NULL,						-- 스케줄 시간목록
+	   schedule_onactive ENUM('active', 'deactive') NOT NULL DEFAULT 'active',	-- 예약 가능여부
+	   doctor_no INT NOT NULL REFERENCES doctor(doctor_no)				-- 의사 식별번호
+	);
+	
+	
+	# 병원 점심시간 테이블
+	CREATE TABLE launch(
+		launch_no INT AUTO_INCREMENT PRIMARY KEY,				-- 점심시간 식별 번호
+	   launch_start TIME NOT NULL,							-- 점심 시작 시간
+	   launch_end TIME NOT NULL,							-- 점심 정료시간
+	   hosp_no INT NOT NULL REFERENCES hospital(hosp_no)				-- 병원 식별번호
+	);
 ```
+</details>
 
 
 ### 테스트케이스 및 주요쿼리
