@@ -387,6 +387,8 @@ WHERE doctor_no=1;
       secession_date = NOW()
   WHERE user_no = 11;
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/80452437/92adac65-f0ae-424e-8a71-06693978dc94)
+
   </div>
   </details>
   
