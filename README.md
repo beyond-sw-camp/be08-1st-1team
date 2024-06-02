@@ -635,7 +635,7 @@ WHERE doctor_no=1;
   </details>
   
 
-### 테스트 케이스
+### 테스트 데이터
 <details>
   <summary>Tables</summary>
 
