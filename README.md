@@ -465,6 +465,7 @@ WHERE doctor_no=1;
       AND onactive = 'active'
   ) AND EXISTS (SELECT 1 FROM doctor WHERE hosp_no=1 AND doctor_no=1);
   ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/45ceab65-5430-4d9c-b5ef-bbdcfcdae6e5)
   </div>
   </details>
   <details>
