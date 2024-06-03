@@ -45,18 +45,18 @@
 
 ---
 
-## 📝 WBS
+## 📊 WBS
 [WBS 바로가기](https://docs.google.com/spreadsheets/d/1hpVTMaa_74JfIQDtYtLpZEWX7O0yWWgvPrazUaNrMxc/edit#gid=1835326347)
 
 ---
 
-## 🐧 요구사항 명세
+## 📍 요구사항 명세
 [요구사항 명세서 바로가기](https://docs.google.com/spreadsheets/d/1-901JV0erwZaMJBfVRsbWhYAnOgtMyhiOb7uzIzZk0g/edit#gid=0)
 ![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/492654b2-0f72-496c-994e-8edd8dcbb1f5)
 
 ---
 
-##  DB 모델링 
+## 🗂️ DB 모델링 
 ### 1. 개념 모델링
 ![erd_gn](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/edbb8c5c-306c-4dd6-978a-e0291d34e5a2)
 ### 2. 논리 모델링
@@ -66,7 +66,7 @@
 
 ---
 
-## DDL
+## 📝 DDL
   <details>
   <summary>DDL</summary>
   <div>
