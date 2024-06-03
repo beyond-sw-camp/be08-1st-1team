@@ -84,7 +84,13 @@
 
 ### 주요 특징
 
-### DB 모델링
+## 🐧 DB 모델링 
+### 1. 개념 모델링
+![erd_gn](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/edbb8c5c-306c-4dd6-978a-e0291d34e5a2)
+### 2. 논리 모델링
+![ERD_logical_findoc](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/2e084a49-68a6-4191-96d7-06a3a5583527)
+### 3. 물리 모델링 
+![ERD_physical_findoc](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/d4f78a01-21e8-408e-8340-bde06e37b678)
 <details>
   <summary> <span class="summary-header">개념 모델링</span></summary>
 
@@ -105,7 +111,7 @@
 </details>
 
   
-### DDL
+## DDL
   <details>
   <summary>DDL</summary>
   <div>
