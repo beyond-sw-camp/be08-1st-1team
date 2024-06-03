@@ -44,6 +44,18 @@
 - 보호자-피보호자 시스템으로 피보호자의 진료 대리 예약 가능
 
 ----------
+##  WBS
+<details>
+  <summary>WBS
+    
+  </summary>
+  https://docs.google.com/spreadsheets/d/1hpVTMaa_74JfIQDtYtLpZEWX7O0yWWgvPrazUaNrMxc/edit#gid=1835326347
+  
+  ![wbs](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/6ed5b4dd-06af-4889-93bd-82d9ee2614ea)
+
+</details>
+
+---
 
 ## 🐧 프로젝트 주요 기능
 <details>
