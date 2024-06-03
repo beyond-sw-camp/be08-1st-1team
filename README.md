@@ -46,7 +46,7 @@
 ---
 
 ## 📝 WBS
-[WBS 바로가기](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/6ed5b4dd-06af-4889-93bd-82d9ee2614ea)
+[WBS 바로가기](https://docs.google.com/spreadsheets/d/1hpVTMaa_74JfIQDtYtLpZEWX7O0yWWgvPrazUaNrMxc/edit#gid=1835326347)
 
 ---
 
