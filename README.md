@@ -489,8 +489,8 @@
       <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/0910f3fc-4b46-4968-b307-1809f2039b99" alt="Description of first image" width="300"/>
       <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/ccaed4d3-bcc1-403a-aa5b-266084773362" alt="Description of second image" width="300"/>
     </p>
-
- 
+<br>
+<br>
 	-- 일주일간의 시간들 담을 테이블
 	CREATE OR REPLACE TABLE time_interval (
 	    half_hour DATETIME,
@@ -505,20 +505,20 @@
 	'''
 	https://github.com/beyond-sw-camp/be08-1st-primary-findoc/blob/main/README.md
 	DELIMITER $$
-	
+	<br>
 	CREATE OR REPLACE PROCEDURE loopwhile()
 	BEGIN
 	    DECLARE start_datetime DATETIME;
 	    DECLARE end_datetime DATETIME;
 	    DECLARE current_datetime DATETIME;
-	
+	<br>
 	    -- 시작과 종료 시간 설정
 	    SET start_datetime = DATE(NOW());  -- 오늘 자정
 	    SET end_datetime = DATE_ADD(start_datetime, INTERVAL 7 DAY);  -- 일주일 후
-	
+	<br>
 	    -- 오늘 이전의 데이터 삭제
 	    DELETE FROM time_interval WHERE half_hour < start_datetime;
-	
+	<br>
 	    -- 의사별 일주일 간 30분 간격 데이터 삽입
 	    WHILE start_datetime < end_datetime DO
 	        INSERT INTO time_interval (half_hour, onactive, doctor_no)
@@ -528,17 +528,17 @@
 	            SELECT 1 FROM time_interval
 	            WHERE half_hour = start_datetime AND doctor_no = doctor.doctor_no
 	        );
-	
+	<br>
 	        -- 다음 30분 간격 설정
 	        SET start_datetime = DATE_ADD(start_datetime, INTERVAL 30 MINUTE);
 	    END WHILE;
 	END$$
-	
+	<br>
 	DELIMITER ;
-	
+	<br>
 	-- 일주일 시간 업데이트 프로시저 실행
 	CALL loopwhile();
-	
+	<br>
 	-- 근무시간 테이블 생성
 	CREATE TABLE worktime (
 	    doctor_no INT,
@@ -546,9 +546,9 @@
 	    end_worktime DATETIME,
 	    FOREIGN KEY (doctor_no) REFERENCES doctor(doctor_no)
 	);
-	
+	<br>
 	DELIMITER $$
-	
+	<br>
 	-- 근무시간표가 업데이트 될 때 해당 사이 시간 active 로 변경
 	CREATE TRIGGER activate_time_intervals
 	AFTER INSERT ON worktime
@@ -561,33 +561,33 @@
 	      AND half_hour >= NEW.start_worktime
 	      AND half_hour <= NEW.end_worktime;
 	END$$
-	
+	<br>
 	DELIMITER ;
-	
+	<br>
 	-- 특정 의사의 특정 시간에 대해서 activate 하는 쿼리 ( deactive도 문제 없음 )
 	UPDATE time_interval
 	SET onactive = 'active'
 	WHERE doctor_no = 1
 	  AND half_hour = '2024-05-01 08:00:00';
-	  
+	<br>
 	-- worktime 테스트 케이스 삽입
 	INSERT INTO worktime (doctor_no, start_worktime, end_worktime) VALUES
 	(1, '2024-06-02 08:00:00', '2024-06-02 09:30:00');
-	
+	<br>
 	-- time_interval 테이블 업데이트 확인
 	SELECT *
 	FROM time_interval
 	WHERE doctor_no=1;
-
-
+<br>
+<br>
   </div>
   </details>
-
+<br>
   ### 3. 병원 검색 
   <details>
   <summary>필터 기반 병원 검색</summary>
   <div>
-   
+<br>
   * 수술실, MRI가 있는 외과 검색
   ```sql
 
@@ -605,6 +605,7 @@
   JOIN worktime w ON doc.doctor_no = w.doctor_no
   WHERE f.facility_name = "수술실" AND e.equipment_name = "MRI" AND dept.dept_name = "외과";
   ```
+<br>
 ![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/51b6fe1e-1914-44cd-87d3-54e74e7d59a8)
   </div>
   </details>
