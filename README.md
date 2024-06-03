@@ -72,7 +72,7 @@
   <div>
 	  
   ```sql	
-  #회원 테이블
+ 	        #회원 테이블
 		CREATE TABLE `user` (
 			`user_no`	INT AUTO_INCREMENT PRIMARY KEY,											-- 유저 식별번호
 			`user_id`	VARCHAR(20)	NOT NULL UNIQUE,										-- 유저 ID
@@ -113,7 +113,7 @@
 		
 		# 병원 위치정보 테이블
 		CREATE TABLE `location` (
-		   `loc_no` INT AUTO_INCREMENT PRIMARY KEY,							-- 병원 위치정보 식별 번호
+		        `loc_no` INT AUTO_INCREMENT PRIMARY KEY,						-- 병원 위치정보 식별 번호
 			`loc_addr`	VARCHAR(100)	NOT NULL UNIQUE,					-- 병원 주소
 			`loc_lat`	DOUBLE	NOT NULL,							-- 병원 위도
 			`loc_long`	DOUBLE	NOT NULL,							-- 병원 경도
@@ -124,7 +124,7 @@
 		
 		# 병원 공지사항 테이블
 		CREATE TABLE `notice` (
-		   `notice_no` INT AUTO_INCREMENT PRIMARY KEY,								-- 공지사항 식별 번호
+		        `notice_no` INT AUTO_INCREMENT PRIMARY KEY,							-- 공지사항 식별 번호
 			`notice_datetime`	DATETIME	NOT NULL	DEFAULT CURTIME(),			-- 공지사항 입력 날짜
 			`notice_body`	VARCHAR(300)	NOT NULL,							-- 공지사항 내용
 			`hosp_no`	INT	NOT NULL REFERENCES hospital(`hosp_no`)					-- 병원 식별번호
@@ -133,7 +133,7 @@
 		
 		# 병원 시설 테이블
 		CREATE TABLE `facility` (
-		   `facility_no` INT AUTO_INCREMENT PRIMARY KEY,					-- 시설 식별 번호
+		        `facility_no` INT AUTO_INCREMENT PRIMARY KEY,					-- 시설 식별 번호
 			`facility_name`	VARCHAR(50)	NOT NULL,					-- 병원 시설 이름
 			`hosp_no`	INT	NOT NULL REFERENCES hospital(`hosp_no`)			-- 병원 식별 번호
 		);
@@ -141,7 +141,7 @@
 		
 		# 병원 장비 테이블
 		CREATE TABLE `equipment` (
-		   `equipment_no` INT AUTO_INCREMENT PRIMARY KEY,				-- 테이블 pk
+		        `equipment_no` INT AUTO_INCREMENT PRIMARY KEY,				-- 테이블 pk
 			`equipment_name`	VARCHAR(50)	NOT NULL,			-- 병원 장비 이름
 			`hosp_no`	INT	NOT NULL REFERENCES hospital(`hosp_no`)		-- 병원 식별 번호
 		);
@@ -156,24 +156,24 @@
 		
 		# 의사 테이블
 		CREATE TABLE `doctor` (
-		    `doctor_no`    INT AUTO_INCREMENT PRIMARY KEY,				-- 의사 식별 번호
-		    `hosp_no`    INT    NOT NULL REFERENCES `hospital`(`hosp_no`),		-- 병원 식별 번호
-		    `doctor_name` VARCHAR(40) NOT NULL,						-- 의사 이름
-		    `doctor_gender` ENUM('F', 'M') NULL						-- 의사 성별
+		        `doctor_no`    INT AUTO_INCREMENT PRIMARY KEY,				-- 의사 식별 번호
+		        `hosp_no`    INT    NOT NULL REFERENCES `hospital`(`hosp_no`),		-- 병원 식별 번호
+		        `doctor_name` VARCHAR(40) NOT NULL,						-- 의사 이름
+		        `doctor_gender` ENUM('F', 'M') NULL						-- 의사 성별
 		);
 		
 		
 		# 의사의 진료과목, 진료실 테이블
 		CREATE TABLE `doctor_dept` (
-			`docdept_no`	INT	AUTO_INCREMENT	PRIMARY KEY,					-- 의사_진료과 식별 번호
-			`doctor_no`	INT	NOT NULL REFERENCES doctor(`doctor_no`),			-- 의사 식별번호
-			`dept_id`	VARCHAR(10)	NOT NULL	REFERENCES department(`dept_id`),	-- 진료과목 ID
-			`docdept_room` VARCHAR(20)								-- 의사 진료실명
+		        `docdept_no`	INT	AUTO_INCREMENT	PRIMARY KEY,					-- 의사_진료과 식별 번호
+		        `doctor_no`	INT	NOT NULL REFERENCES doctor(`doctor_no`),			-- 의사 식별번호
+		        `dept_id`	VARCHAR(10)	NOT NULL	REFERENCES department(`dept_id`),	-- 진료과목 ID
+		        `docdept_room` VARCHAR(20)								-- 의사 진료실명
 		);
 		
 		# 의사 진료시간 테이블
 		CREATE TABLE `worktime` (
-		   `worktime_no` INT AUTO_INCREMENT PRIMARY KEY,					-- 테이블 pk
+		        `worktime_no` INT AUTO_INCREMENT PRIMARY KEY,					-- 테이블 pk
 			`worktime_start`	DATETIME	NOT NULL,				-- 의사 진료 시작 시간
 			`worktime_end`	DATETIME	NOT NULL,					-- 의사 진료 종료 시간
 			`doctor_no`	INT	NOT NULL REFERENCES doctor(`doctor_no`)			-- 의사 식별 번호
@@ -182,7 +182,7 @@
 		
 		# 예약 테이블
 		CREATE TABLE `appointment` (
-			`appt_no`	INT AUTO_INCREMENT	PRIMARY KEY,								-- 예약 식별 번호
+		        `appt_no`	INT AUTO_INCREMENT	PRIMARY KEY,								-- 예약 식별 번호
 			`appt_date`	DATETIME	NOT NULL,									-- 예약 날짜시간
 			`appt_status`	ENUM('waiting', 'accepted', 'rejected', 'complete')	NOT NULL	DEFAULT 'waiting',	-- 예약 상태(대기, 승인, 거절, 진료완료)
 			`appt_symptom`	VARCHAR(50)	NULL,										-- 예약 증상
@@ -196,7 +196,7 @@
 		
 		# 진료기록 테이블
 		CREATE TABLE `medical_record` (
-			`record_no`	INT	AUTO_INCREMENT PRIMARY KEY,								-- 진료기록 식별 번호
+		        `record_no`	INT	AUTO_INCREMENT PRIMARY KEY,								-- 진료기록 식별 번호
 			`record_diagnosis`	VARCHAR(100)	NULL,									-- 진료 진단 내용
 			`record_treatment`	VARCHAR(100)	NULL,									-- 진료 치료 내용
 			`appt_no`	INT	NOT NULL UNIQUE REFERENCES `appointment`(`appt_no`)					-- 예약 식별 번호
@@ -206,7 +206,7 @@
 		
 		# 거절 사유 테이블
 		CREATE TABLE `rejection`(
-		   `rejection_no` INT	AUTO_INCREMENT PRIMARY KEY,		            	-- 거절 사유 식별 번호
+		        `rejection_no` INT	AUTO_INCREMENT PRIMARY KEY,		        -- 거절 사유 식별 번호
 			`rejection_result` VARCHAR(100) NOT NULL,				-- 거절 이유
 			`appt_no` INT NOT NULL REFERENCES `appointment`(`appt_no`)		-- 예약 식별 번호
 		);
@@ -214,19 +214,19 @@
 		
 		# 의사 스케줄  테이블
 		CREATE TABLE schedule(
-			schedule_no INT AUTO_INCREMENT PRIMARY KEY,				-- 스케줄 식별 번호
-		   schedule_time DATETIME NOT NULL,						-- 스케줄 시간목록
-		   schedule_onactive ENUM('active', 'deactive') NOT NULL DEFAULT 'active',	-- 예약 가능여부
-		   doctor_no INT NOT NULL REFERENCES doctor(doctor_no)				-- 의사 식별번호
+		        schedule_no INT AUTO_INCREMENT PRIMARY KEY,				        -- 스케줄 식별 번호
+		        schedule_time DATETIME NOT NULL,						-- 스케줄 시간목록
+		        schedule_onactive ENUM('active', 'deactive') NOT NULL DEFAULT 'active',	-- 예약 가능여부
+		        doctor_no INT NOT NULL REFERENCES doctor(doctor_no)				-- 의사 식별번호
 		);
 		
 		
 		# 병원 점심시간 테이블
 		CREATE TABLE launch(
-			launch_no INT AUTO_INCREMENT PRIMARY KEY,				-- 점심시간 식별 번호
-		   launch_start TIME NOT NULL,							-- 점심 시작 시간
-		   launch_end TIME NOT NULL,							-- 점심 정료시간
-		   hosp_no INT NOT NULL REFERENCES hospital(hosp_no)				-- 병원 식별번호
+		        launch_no INT AUTO_INCREMENT PRIMARY KEY,				        -- 점심시간 식별 번호
+		        launch_start TIME NOT NULL,							-- 점심 시작 시간
+		        launch_end TIME NOT NULL,							-- 점심 정료시간
+		        hosp_no INT NOT NULL REFERENCES hospital(hosp_no)				-- 병원 식별번호
 		);
   ```
   </div>
