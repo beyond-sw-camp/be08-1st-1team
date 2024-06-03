@@ -324,7 +324,7 @@
       <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/0910f3fc-4b46-4968-b307-1809f2039b99" alt="Description of first image" width="300"/>
       <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/ccaed4d3-bcc1-403a-aa5b-266084773362" alt="Description of second image" width="300"/>
     </p>
-  ```sql
+
  
 	-- 일주일간의 시간들 담을 테이블
 	CREATE OR REPLACE TABLE time_interval (
@@ -414,7 +414,7 @@
 	FROM time_interval
 	WHERE doctor_no=1;
 
-  ```
+
   </div>
   </details>
 
