@@ -247,6 +247,174 @@
 
 ### 2. 테스트 데이터
 <details>
+	<summary> test_data </summary>
+
+ ```python
+import pandas as pd
+from faker import Faker
+import numpy as np
+from datetime import datetime, timedelta, time, date
+
+fake = Faker('ko_KR')
+
+
+# 무작위 근무 시간 생성 함수
+'''
+
+'''
+def generate_work_hours():
+    starttime_worktime = np.random.randint(0, 23)  # 출근 시간: 오전 0시부터 오후 11시 사이 무작위
+    duration = np.random.randint(1, 9)  # 근무 시간은 1시간에서 8시간 사이
+    endtime_worktime = time(start_hour, 0)  # 분은 0으로 고정
+    end_time = (datetime.combine(date.today(), start_time) + timedelta(hours=duration)).time()
+    return starttime_worktime.strftime("%H:%M"), endtime_worktime.strftime("%H:%M")
+
+# 유니크한 UserID 생성 함수
+'''
+
+'''
+def unique_user_id(existing_ids, min_length=6, max_length=12):
+    while True:
+        # user_name() 메서드는 종종 짧은 아이디를 생성할 수 있으므로 길이를 조절
+        user_id = ''.join(fake.words(nb=2)).lower().replace(' ', '')
+        if min_length <= len(user_id) <= max_length and user_id not in existing_ids:
+            existing_ids.add(user_id)
+            return user_id
+
+# Users 테이블 데이터 생성
+def create_users(n):
+    user_ids = set()  # 중복을 방지하기 위해 집합 사용
+    users = []
+    for i in range(n):
+        user_id = unique_user_id(user_ids)  # 유니크한 UserID 생성
+        users.append({
+            "User No" : i+1
+            "UserID": user_id,
+            "Password": fake.password(),
+            "Name": fake.name(),
+            "Age": np.random.randint(18, 80),
+            "Address": fake.address(),
+            "PhoneNumber": fake.phone_number(),
+            "MemberSince": fake.date_this_decade(),
+            "IsActive": np.random.choice([True, False])
+        })
+    return pd.DataFrame(users)
+
+
+# MedicalRecords 테이블 데이터 생성
+def create_medical_records(n, user_ids):
+    records = [{
+        "RecordID": i,
+        "UserID": np.random.choice(user_ids),
+        "VisitDate": fake.date_this_year(),
+        "Symptoms": fake.sentence(),
+        "Diagnosis": fake.sentence(),
+        "Treatment": fake.sentence()
+    } for i in range(1, n+1)]
+    return pd.DataFrame(records)
+
+# Guardians 테이블 데이터 생성
+def create_guardians(n, user_ids):
+    guardians = [{
+        "GuardianID": i,
+        "UserID": np.random.choice(user_ids),
+        "DependentID": np.random.choice(user_ids),
+        "Relationship": np.random.choice(['parent', 'child', 'spouse'])
+    } for i in range(1, n+1)]
+    return pd.DataFrame(guardians)
+'''
+CREATE TABLE `hospital` (
+	`no_hospital`	INT	NOT NULL,
+	`password_hospital`	VARCHAR	NOT NULL,
+	`name_hospital`	VARCHAR	NOT NULL,
+	`call_hospital`	VARCHAR	NULL,
+	`room_hospital`	VARCHAR	NULL,
+	`id_hospital`	VARCHAR	NOT NULL
+);
+'''
+# Hospitals 테이블 데이터 생성
+def create_hospitals(n):
+    hospitals = [{
+        "Hospital No":i
+        "HospitalID": fake.user_name(),  # 병원 아이디
+        "Password": fake.password(),
+        "HospitalName": fake.company() + " 병원",
+        "Address": fake.address(),
+        "ContactInfo": fake.phone_number(),
+        "Facilities": "기본 시설",
+        "Equipment": "일반적인 의료 장비"
+    } for i in range(1, n+1)]
+    return pd.DataFrame(hospitals)
+
+# Doctors 테이블 데이터 생성
+def create_doctors(n, hospital_ids):
+    doctors = [{
+        "DoctorID": i,
+        "HospitalID": np.random.choice(hospital_ids),
+        "Name": fake.name(),
+        "Specialty": np.random.choice(['소아과', '내과', '외과']),
+    } for i in range(1, n+1)]
+    return pd.DataFrame(doctors)
+
+# Appointments 테이블 데이터 생성
+def create_appointments(n, user_ids, doctor_ids):
+    appointments = [{
+        "AppointmentID": i,
+        "UserID": np.random.choice(user_ids),
+        "DoctorID": np.random.choice(doctor_ids),
+        "AppointmentDate": fake.date_between(start_date='today', end_date='+30d'),
+        "Time": fake.time(),
+        "Symptoms": fake.sentence(),
+        "Status": np.random.choice(['신청', '확정', '반려', '완료', '취소'])
+    } for i in range(1, n+1)]
+    return pd.DataFrame(appointments)
+
+# WorkHours 테이블 데이터 생성
+def create_work_hours(doctor_ids):
+    work_hours = []
+    for doctor_id in doctor_ids:
+        start_time, end_time = generate_work_hours()
+        work_hours.append({
+            "DoctorID": doctor_id,
+            "WorkStartTime": start_time,
+            "WorkEndTime": end_time
+        })
+    return pd.DataFrame(work_hours)
+
+
+# 데이터 프레임을 생성
+users_df = create_users(100)
+hospitals_df = create_hospitals(20)
+doctors_df = create_doctors(50, hospitals_df['HospitalID'].unique())
+appointments_df = create_appointments(200, users_df['UserID'].unique(), doctors_df['DoctorID'].unique())
+medical_records_df = create_medical_records(200, users_df['UserID'].unique())
+guardians_df = create_guardians(50, users_df['UserID'].unique())
+work_hours_df = create_work_hours(doctors_df['DoctorID'])
+
+# Excel 파일로 저장
+with pd.ExcelWriter('C:/Users/Playdata/Desktop/test_case0523/test_data.xlsx') as writer:
+    users_df.to_excel(writer, index=False, sheet_name='Users')
+    medical_records_df.to_excel(writer, index=False, sheet_name='MedicalRecords')
+    guardians_df.to_excel(writer, index=False, sheet_name='Guardians')
+    hospitals_df.to_excel(writer, index=False, sheet_name='Hospitals')
+    doctors_df.to_excel(writer, index=False, sheet_name='Doctors')
+    appointments_df.to_excel(writer, index=False, sheet_name='Appointments')
+
+
+location에서 병원 하나 당 위치는 하나이므로, hosp_no가 중복되면 안된다, 또한 각 병원들마다 위치 정보를 무조건 가지고 있으므로, hosp_no당 위치정보가 모두 존재해야 한다
+appt_no의 경우 예약번호로서, 중복되면 안되고, 예약 테이블에서는 appt_status가 존재해야 한다. 추가적으로, 유저 하나당 waiting의 개수와 accepted+rejected의 개수는 동일해야 하며 accepted와 complete의 개수 또한 같아야 한다.
+
+worktime_start와 worktime_end의 간격은 24시간 이내이어야 한다.
+
+user_no는 100까지 있다고 가정하자
+
+WORKTIME테이블의 경우에는 worktime start가 다양했으면 좋겠다. 또한 한 doctor_no에 대해서 두개의 행이 겹치는 시간이 없어야 하며 , doctor_no당 여러개의 데이터가 들어가면 좋겠다
+
+```
+</details>
+
+
+<details>
   <summary> User Table </summary>
   
   | user_id     | user_pwd     | user_name     | user_birthdate | user_addr         | user_phone   | user_disease   | user_medicine  |
