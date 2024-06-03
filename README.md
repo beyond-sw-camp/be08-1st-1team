@@ -610,6 +610,7 @@
   WHERE f.facility_name = "수술실" AND e.equipment_name = "MRI" AND dept.dept_name = "외과";
   ```
 <br>
+
 ![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/51b6fe1e-1914-44cd-87d3-54e74e7d59a8)
   </div>
   </details>
