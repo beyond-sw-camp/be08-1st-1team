@@ -489,14 +489,16 @@
 	      <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/0910f3fc-4b46-4968-b307-1809f2039b99" alt="Description of first image" width="300"/>
 	      <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/ccaed4d3-bcc1-403a-aa5b-266084773362" alt="Description of second image" width="300"/>
     </p>
-<br>
-	-- 일주일간의 시간들 담을 테이블
-	CREATE OR REPLACE TABLE time_interval (
-	    half_hour DATETIME,
-	    onactive ENUM('active', 'deactive'),
-	    doctor_no INT,
-	    FOREIGN KEY (doctor_no) REFERENCES doctor(doctor_no)
-	);
+	  
+```
+-- 일주일간의 시간들 담을 테이블
+CREATE OR REPLACE TABLE time_interval (
+    half_hour DATETIME,
+    onactive ENUM('active', 'deactive'),
+    doctor_no INT,
+    FOREIGN KEY (doctor_no) REFERENCES doctor(doctor_no)
+);
+```
 <br>
 	'''
 	금일부터 일주일간의 시간들 생성 프로시저
@@ -507,6 +509,7 @@
 	https://github.com/beyond-sw-camp/be08-1st-primary-findoc/blob/main/README.md
 	DELIMITER $$
 	<br>
+ ```
 	CREATE OR REPLACE PROCEDURE loopwhile()
 	BEGIN
 	    DECLARE start_datetime DATETIME;
@@ -579,6 +582,8 @@
 	SELECT *
 	FROM time_interval
 	WHERE doctor_no=1;
+```
+		      
 <br>
 <br>
   </div>
