@@ -326,6 +326,7 @@
     </p>
 
 	```sql
+ 
 	-- 일주일간의 시간들 담을 테이블
 	CREATE OR REPLACE TABLE time_interval (
 	    half_hour DATETIME,
@@ -413,6 +414,7 @@
 	SELECT *
 	FROM time_interval
 	WHERE doctor_no=1;
+ 
  	```
   </div>
   </details>
