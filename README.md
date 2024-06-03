@@ -247,7 +247,7 @@
 
 ### 2. 테스트 데이터
 <details>
-	<summary> test_data </summary>
+	<summary> test_data.py </summary>
 
  ```python
 import pandas as pd
@@ -401,14 +401,6 @@ with pd.ExcelWriter('C:/Users/Playdata/Desktop/test_case0523/test_data.xlsx') as
     appointments_df.to_excel(writer, index=False, sheet_name='Appointments')
 
 
-location에서 병원 하나 당 위치는 하나이므로, hosp_no가 중복되면 안된다, 또한 각 병원들마다 위치 정보를 무조건 가지고 있으므로, hosp_no당 위치정보가 모두 존재해야 한다
-appt_no의 경우 예약번호로서, 중복되면 안되고, 예약 테이블에서는 appt_status가 존재해야 한다. 추가적으로, 유저 하나당 waiting의 개수와 accepted+rejected의 개수는 동일해야 하며 accepted와 complete의 개수 또한 같아야 한다.
-
-worktime_start와 worktime_end의 간격은 24시간 이내이어야 한다.
-
-user_no는 100까지 있다고 가정하자
-
-WORKTIME테이블의 경우에는 worktime start가 다양했으면 좋겠다. 또한 한 doctor_no에 대해서 두개의 행이 겹치는 시간이 없어야 하며 , doctor_no당 여러개의 데이터가 들어가면 좋겠다
 
 ```
 </details>
