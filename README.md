@@ -616,6 +616,7 @@
    
   * 해당 예약 시간에 선택한 담당의가 active이면 예약 가능 
 
+  ```sql
 
   INSERT INTO appointment (appt_date, appt_symptom, user_no, hosp_no, doctor_no)
   SELECT '2024-06-02 08:30:00', '복통', 6, 1, 1
@@ -686,7 +687,7 @@
 
   -- CALL 예시 
   CALL AddAppointmentByGuardian(6, 1, '2024-06-02 08:30:00', '고혈압 증상', 1, 1, 'user06', 'user01');
-
+  ```
 ![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/44601597-23e3-473c-ad1f-c0c7016179e0)
   </div>
   </details>
