@@ -70,55 +70,23 @@
 
 ---
 
-## 💻 프로젝트 구현
-<!-- 구동 움짤 -->
-### WBS
-<details>
-  <summary>접기/펼치기
-    
-  </summary>
-  https://docs.google.com/spreadsheets/d/1hpVTMaa_74JfIQDtYtLpZEWX7O0yWWgvPrazUaNrMxc/edit#gid=1835326347
-  
-  ![wbs](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/6ed5b4dd-06af-4889-93bd-82d9ee2614ea)
-
-</details>
-
-
-### 주요 특징
-
-## 🐧 DB 모델링 
+## 💻 DB 모델링 
 ### 1. 개념 모델링
 ![erd_gn](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/edbb8c5c-306c-4dd6-978a-e0291d34e5a2)
 ### 2. 논리 모델링
 ![ERD_logical_findoc](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/2e084a49-68a6-4191-96d7-06a3a5583527)
 ### 3. 물리 모델링 
 ![ERD_physical_findoc](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/d4f78a01-21e8-408e-8340-bde06e37b678)
-<details>
-  <summary> <span class="summary-header">개념 모델링</span></summary>
 
-  ![erd_gn](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/edbb8c5c-306c-4dd6-978a-e0291d34e5a2)
+---
 
-</details>
-<details>
-  <summary> <span class="summary-header">논리 모델링</span></summary>
-
-  ![ERD_logical_findoc](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/2e084a49-68a6-4191-96d7-06a3a5583527)
-
-</details>
-<details>
-  <summary> <span class="summary-header">물리 모델링</span></summary>
-
-  ![ERD_physical_findoc](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/d4f78a01-21e8-408e-8340-bde06e37b678)
-
-</details>
-
-  
 ## DDL
   <details>
   <summary>DDL</summary>
   <div>
-
-  		#회원 테이블
+	  
+  ```sql	
+  #회원 테이블
 		CREATE TABLE `user` (
 			`user_no`	INT AUTO_INCREMENT PRIMARY KEY,											-- 유저 식별번호
 			`user_id`	VARCHAR(20)	NOT NULL UNIQUE,										-- 유저 ID
@@ -274,15 +242,16 @@
 		   launch_end TIME NOT NULL,							-- 점심 정료시간
 		   hosp_no INT NOT NULL REFERENCES hospital(hosp_no)				-- 병원 식별번호
 		);
-
+  ```
   </div>
   </details>
 
+---
 
-### 테스트케이스 및 주요쿼리
+## 주요 쿼리
 
 
-  #### 회원
+  ### 1. 회원
   <details>
   <summary>회원 가입</summary>
   <div>
@@ -310,7 +279,7 @@
   </div>
   </details>
   
-  #### 병원 
+  ### 2. 병원 
   <details>
   <summary>병원 가입</summary>
   <div>
@@ -439,7 +408,7 @@
   </div>
   </details>
 
-  #### 병원 검색 
+  ### 3. 병원 검색 
   <details>
   <summary>필터 기반 병원 검색</summary>
   <div>
@@ -465,7 +434,7 @@
   </div>
   </details>
 
-  #### 병원 예약 
+  ### 4. 병원 예약 
   <details>
   <summary>환자 본인 진료 예약</summary>
   <div>
@@ -569,7 +538,7 @@
   </div>
   </details>
 
-  #### 예약 취소 
+  ### 5. 예약 취소 
   <details>
   <summary>환자 본인 진료 예약 취소</summary>
   <div>
@@ -679,7 +648,7 @@
   </div>
   </details>
 
-  #### 예약 변경
+  ### 6. 예약 변경
   <details>
   <summary>환자 본인 진료 예약 변경</summary>
   <div>
@@ -725,7 +694,7 @@
   </div>
   </details>
 
-  #### 예약 수락 / 거절
+  ### 7. 예약 수락 / 거절
   <details>
   <summary>병원이 예약 수락 / 거절</summary>
   <div>
@@ -766,7 +735,7 @@
   </div>
   </details>
 
-#### 진료기록
+### 8. 진료기록
   <details>
   <summary>회원이 진료 기록 확인</summary>
   <div>
@@ -804,7 +773,7 @@
   </div>
   </details>
 
-#### 보호자 / 피보호자 설정 
+### 9. 보호자 / 피보호자 설정 
   <details>
   <summary>보호자 신청</summary>
   <div>
@@ -850,8 +819,9 @@
   </div>
   </details>
   
+---
 
-### 테스트 데이터
+## 테스트 데이터
 <details>
   <summary>Tables</summary>
 
