@@ -585,12 +585,14 @@
   </div>
   </details>
 <br>
+		      
   ### 3. 병원 검색 
   <details>
   <summary>필터 기반 병원 검색</summary>
   <div>
 <br>
   * 수술실, MRI가 있는 외과 검색
+	  
   ```sql
 
   SELECT h.hosp_name AS "병원명",
