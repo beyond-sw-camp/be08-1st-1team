@@ -98,7 +98,6 @@
   <summary>DDL</summary>
   <div>
   		```sql
-	  
 		# 회원 테이블
 		CREATE TABLE `user` (
 			`user_no`	INT AUTO_INCREMENT PRIMARY KEY,											-- 유저 식별번호
