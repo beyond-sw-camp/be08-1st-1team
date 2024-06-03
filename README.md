@@ -490,7 +490,7 @@
 	      <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/ccaed4d3-bcc1-403a-aa5b-266084773362" alt="Description of second image" width="300"/>
     </p>
 	  
-```
+```sql
 -- 일주일간의 시간들 담을 테이블
 CREATE OR REPLACE TABLE time_interval (
     half_hour DATETIME,
@@ -501,18 +501,16 @@ CREATE OR REPLACE TABLE time_interval (
 ```
 <br>
 
-```
-	금일부터 일주일간의 시간들 생성 프로시저
-	(오늘 이전은 삭제 오늘로부터 일주일 중 없는 시간이 있다면 생성,
-	이미 테이블에 있는 시간에 대해서는 변동없음)
-```
+
+금일부터 일주일간의 시간들 생성 프로시저
+(오늘 이전은 삭제 오늘로부터 일주일 중 없는 시간이 있다면 생성,
+이미 테이블에 있는 시간에 대해서는 변동없음)
+
 
  <br>
-	https://github.com/beyond-sw-camp/be08-1st-primary-findoc/blob/main/README.md
-	DELIMITER $$
-	<br>
  
- ```
+```sql
+	DELIMITER $$
 	CREATE OR REPLACE PROCEDURE loopwhile()
 	BEGIN
 	    DECLARE start_datetime DATETIME;
