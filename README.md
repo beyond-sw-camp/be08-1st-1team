@@ -15,7 +15,7 @@
 📃[프로젝트 회고록](블로그주소)
 -->
 
-----------
+---
 
 ## ✨ 프로젝트 개요
 ### 1. 프로젝트 소개 
@@ -44,28 +44,14 @@
 - 보호자-피보호자 시스템으로 피보호자의 진료 대리 예약 가능
 
 ---
-## 📝 WBS
-<details>
-  <summary>WBS
-    
-  </summary>
-  https://docs.google.com/spreadsheets/d/1hpVTMaa_74JfIQDtYtLpZEWX7O0yWWgvPrazUaNrMxc/edit#gid=1835326347
-  
-  ![wbs](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/6ed5b4dd-06af-4889-93bd-82d9ee2614ea)
 
-</details>
+## 📝 WBS
+[WBS 바로가기](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/6ed5b4dd-06af-4889-93bd-82d9ee2614ea)
 
 ---
 
 ## 🐧 요구사항 명세
-<details>
-	<summary>요구사항 명세서</summary>
-	
- ![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/492654b2-0f72-496c-994e-8edd8dcbb1f5)
-<br>
-[요구사항 명세](https://docs.google.com/spreadsheets/d/1-901JV0erwZaMJBfVRsbWhYAnOgtMyhiOb7uzIzZk0g/edit#gid=0)
-</details>
-
+[요구사항 명세서 바로가기](https://docs.google.com/spreadsheets/d/1-901JV0erwZaMJBfVRsbWhYAnOgtMyhiOb7uzIzZk0g/edit#gid=0)
 ![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/492654b2-0f72-496c-994e-8edd8dcbb1f5)
 
 ---
