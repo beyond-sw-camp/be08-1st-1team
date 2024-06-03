@@ -97,9 +97,9 @@
   <details>
   <summary>DDL</summary>
   <div>
-  ```sql
-  -- 회원 테이블
-	CREATE TABLE `user` (
+
+  		#회원 테이블
+		CREATE TABLE `user` (
 			`user_no`	INT AUTO_INCREMENT PRIMARY KEY,											-- 유저 식별번호
 			`user_id`	VARCHAR(20)	NOT NULL UNIQUE,										-- 유저 ID
 			`user_pwd`	VARCHAR(20)	NOT NULL,											-- 유저 Password
@@ -115,7 +115,7 @@
 		);
 		
 		
-  -- 보호자/피보호자 테이블
+		#보호자/피보호자 테이블
 		CREATE TABLE `guardian` (
 			`guard_no`	INT	NOT NULL REFERENCES user(`user_no`)								-- 보호자(유저 식별번호)
 			`ward_no`	INT	NOT NULL REFERENCES user(`user_no`),								-- 피보호자(유저 식별번호)
@@ -254,7 +254,7 @@
 		   launch_end TIME NOT NULL,							-- 점심 정료시간
 		   hosp_no INT NOT NULL REFERENCES hospital(hosp_no)				-- 병원 식별번호
 		);
-  	   ```
+
   </div>
   </details>
 
