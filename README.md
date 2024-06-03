@@ -235,7 +235,7 @@
 ---
 
 ## 📃 테스트 케이스
-### 테스트 케이스 문서
+### 1. 테스트 케이스 문서
 [테스트케이스 문서 바로가기](https://docs.google.com/spreadsheets/d/1DoapmkEKpczNL8F6J-lcrC_b0urFBHJlQDxQQlvPRBc/edit#gid=0)
 
 ![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/822f16ce-7bf4-4703-8579-3cbb70888abc)
@@ -245,7 +245,7 @@
 ![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/bfbd0636-1f8b-4bcb-b769-5b74241fe35b)
 
 
-### 테스트 데이터
+### 2. 테스트 데이터
 <details>
   <summary> User Table </summary>
   
