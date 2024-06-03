@@ -413,7 +413,8 @@
 	SELECT *
 	FROM time_interval
 	WHERE doctor_no=1;
-  </div>	```
+ 	```
+  </div>
   </details>
 
   #### 병원 검색 
