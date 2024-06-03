@@ -811,8 +811,9 @@
 <details>
 	<summary>테스트케이스 문서</summary>
 <br>
-[테스트케이스 문서](https://docs.google.com/spreadsheets/d/1-901JV0erwZaMJBfVRsbWhYAnOgtMyhiOb7uzIzZk0g/edit#gid=0)](https://docs.google.com/spreadsheets/d/1DoapmkEKpczNL8F6J-lcrC_b0urFBHJlQDxQQlvPRBc/edit#gid=0)
+	https://docs.google.com/spreadsheets/d/1DoapmkEKpczNL8F6J-lcrC_b0urFBHJlQDxQQlvPRBc/edit#gid=0
 </details>
+
 ### 테스트 데이터
 <details>
   <summary>Tables</summary>
