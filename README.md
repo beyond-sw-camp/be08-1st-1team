@@ -236,16 +236,15 @@
 
 ## 📃 테스트 케이스
 ### 테스트 케이스 문서
-<details>
-	<summary>테스트케이스 문서</summary>
-<br>
-	https://docs.google.com/spreadsheets/d/1DoapmkEKpczNL8F6J-lcrC_b0urFBHJlQDxQQlvPRBc/edit#gid=0
-</details>
+[테스트케이스 문서 바로가기](https://docs.google.com/spreadsheets/d/1DoapmkEKpczNL8F6J-lcrC_b0urFBHJlQDxQQlvPRBc/edit#gid=0)
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/822f16ce-7bf4-4703-8579-3cbb70888abc)
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/e7fe6906-238e-4061-98b6-f0914f2883c6)
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/1602fca4-aeba-4111-a2ca-6420aafb5a7f)
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/081b978d-a87e-4f7a-89bd-b953d3ef19ff)
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/63641939/bfbd0636-1f8b-4bcb-b769-5b74241fe35b)
+
 
 ### 테스트 데이터
-<details>
-  <summary>Tables</summary>
-
 <details>
   <summary> User Table </summary>
   
@@ -419,7 +418,6 @@
 | Unavailable for requested time    | 2       |
 | Doctor on leave                   | 3       |
 
-</details>
 </details>
 
 ---
