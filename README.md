@@ -72,7 +72,7 @@
   <div>
 	  
   ```sql	
- 	        #회원 테이블
+ 	      #회원 테이블
 		CREATE TABLE `user` (
 			`user_no`	INT AUTO_INCREMENT PRIMARY KEY,											-- 유저 식별번호
 			`user_id`	VARCHAR(20)	NOT NULL UNIQUE,										-- 유저 ID
