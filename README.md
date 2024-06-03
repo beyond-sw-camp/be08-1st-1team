@@ -584,7 +584,6 @@
 <br>
   </div>
   </details>
-<br>
 		      
   ### 3. 병원 검색 
   <details>
