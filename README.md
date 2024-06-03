@@ -260,11 +260,65 @@
 
 ### 테스트케이스 및 주요쿼리
 
+
+  #### 회원
   <details>
-    <summary> time_interval</summary>
+  <summary>회원 가입</summary>
+  <div>
+
+  ```sql
+  INSERT INTO user(user_id, user_pwd, user_name, user_birthdate, user_addr, user_phone)
+  VALUE('user11', 'password11', '이장선', '1996-06-03', '경기도김포시 장기동 123-43', '01099487826');
+
+  ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/80452437/dba7ccd2-5015-46b3-bc24-bcead2f37d82)
+  </div>
   </details>
   <details>
-    <summary> time_interval</summary>
+  <summary>회원 탈퇴</summary>
+  <div>
+
+  ```sql
+  UPDATE user
+  SET user_secession = 'deactivate',
+      secession_date = NOW()
+  WHERE user_no = 11;
+  ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/80452437/92adac65-f0ae-424e-8a71-06693978dc94)
+
+  </div>
+  </details>
+  
+  #### 병원 
+  <details>
+  <summary>병원 가입</summary>
+  <div>
+
+  ```sql
+  INSERT INTO hospital(hosp_id, hosp_pwd, hosp_name, hosp_phone)
+  VALUES('hosp11', 'password11', '바른 병원', '01011223345');
+  ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/80452437/28ad5a2f-1bfd-4c89-9efd-e37f323ed6e6)
+
+  </div>
+  </details>
+  <details>
+  <summary>병원 탈퇴</summary>
+  <div>
+
+  ```sql
+  UPDATE hospital
+  SET hosp_secession = 'deactivate',
+      secession_date = NOW()
+  WHERE hosp_no = 11;
+  ```
+![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/80452437/a632201b-40dc-454e-bc01-8a59087bb7ae)
+
+  </div>
+  </details>
+
+    <details>
+    <summary> 의사 스케줄 </summary>
       <p align="center">
       <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/0910f3fc-4b46-4968-b307-1809f2039b99" alt="Description of first image" width="300"/>
       <img src="https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/96649881/ccaed4d3-bcc1-403a-aa5b-266084773362" alt="Description of second image" width="300"/>
@@ -362,62 +416,6 @@ SELECT *
 FROM time_interval
 WHERE doctor_no=1;
 ```
-  </details>
-
-  #### 회원
-  <details>
-  <summary>회원 가입</summary>
-  <div>
-
-  ```sql
-  INSERT INTO user(user_id, user_pwd, user_name, user_birthdate, user_addr, user_phone)
-  VALUE('user11', 'password11', '이장선', '1996-06-03', '경기도김포시 장기동 123-43', '01099487826');
-
-  ```
-![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/80452437/dba7ccd2-5015-46b3-bc24-bcead2f37d82)
-  </div>
-  </details>
-  <details>
-  <summary>회원 탈퇴</summary>
-  <div>
-
-  ```sql
-  UPDATE user
-  SET user_secession = 'deactivate',
-      secession_date = NOW()
-  WHERE user_no = 11;
-  ```
-![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/80452437/92adac65-f0ae-424e-8a71-06693978dc94)
-
-  </div>
-  </details>
-  
-  #### 병원 
-  <details>
-  <summary>병원 가입</summary>
-  <div>
-
-  ```sql
-  INSERT INTO hospital(hosp_id, hosp_pwd, hosp_name, hosp_phone)
-  VALUES('hosp11', 'password11', '바른 병원', '01011223345');
-  ```
-![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/80452437/28ad5a2f-1bfd-4c89-9efd-e37f323ed6e6)
-
-  </div>
-  </details>
-  <details>
-  <summary>병원 탈퇴</summary>
-  <div>
-
-  ```sql
-  UPDATE hospital
-  SET hosp_secession = 'deactivate',
-      secession_date = NOW()
-  WHERE hosp_no = 11;
-  ```
-![image](https://github.com/beyond-sw-camp/be08-1st-primary-findoc/assets/80452437/a632201b-40dc-454e-bc01-8a59087bb7ae)
-
-  </div>
   </details>
 
   #### 병원 검색 
